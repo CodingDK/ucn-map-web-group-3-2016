@@ -1,0 +1,16 @@
+<head>
+  <title>ucn-map</title>
+</head>
+
+<body ng-app="ucn-map">
+    <p>Nothing here {{", before now" }}</p>
+
+    <div ng-controller="PartiesListCtrl">
+        <ul>
+            <li ng-repeat="party in parties">
+                {{party.name}}
+                <p>{{party.description}}</p>
+            </li>
+        </ul>
+    </div>
+</body>
