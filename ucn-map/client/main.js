@@ -6,7 +6,7 @@ window.onerror = function (errorMsg, url, lineNumber, column, errorObj) {
 }
 angular.module('ucn-map', [
   angularMeteor,
-    logToServer
+    LogToServer
 ]).controller('PartiesListCtrl', ['$scope', function($scope) {
 $scope.test = function () {
   t+t;

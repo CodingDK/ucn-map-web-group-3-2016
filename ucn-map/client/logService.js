@@ -3,7 +3,7 @@ import angularMeteor from 'angular-meteor';
 
 const name = 'logToServer';
 
-export default angular.module(name, [])
+export default angular.module(name, [angularMeteor])
     .service('$log', function () {
         this.log = function (msg) {
             Meteor.call('jlLog', [msg]);
@@ -22,10 +22,11 @@ export default angular.module(name, [])
         }
     })
     .factory('$exceptionHandler', function () {
-    return function (exception, cause) {
-        Meteor.call('jlFatalException', [cause, exception]);
-        throw exception;
-    }
+        return function (exception, cause) {
+            Meteor.call('jlFatalException', [cause, exception]);
+            throw exception;
+        }
+    })
     .factory('logToServerInterceptor', ['$q', function ($q) {
         var myInterceptor = {
             'request': function (config) {
@@ -55,4 +56,3 @@ export default angular.module(name, [])
         };
         return myInterceptor;
     }]);
-});
