@@ -1,6 +1,8 @@
 import angular from 'angular';
 import angularMeteor from 'angular-meteor';
-
+window.onerror = function (msg) {
+    Meteor.call('logToServerConsoleWarn', "error: " + msg);
+};
 angular.module('ucn-map', [
   angularMeteor
 ]).controller('PartiesListCtrl', ['$scope', function($scope) {
