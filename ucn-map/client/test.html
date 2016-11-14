@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="text/javascript" src="https://raw.githubusercontent.com/stacktracejs/stacktrace.js/master/dist/stacktrace.js"></script>
+<script type="text/javascript">
+    window.onerror = function(msg, file, line, col, error) {
+        // callback is called with an Array[StackFrame]
+        StackTrace.fromError(error).then(callback).catch(errback);
+    };
+    function test() {
+console.log("hej");
+        var error = new Error('BOOM!');
+
+        StackTrace.fromError(error).then(callback).catch(errback)
+    => Promise(Array[StackFrame], Error)
+
+    }
+</script>
+<button onclick="test();">Test</button>
+</body>
+</html>
