@@ -1,0 +1,20 @@
+//TODO sass/css, next lines can be needed for release/publish
+//noinspection CssUnknownTarget
+//@import "{}/client/styles/imports/bootstrap/var";
+//noinspection CssUnknownTarget
+//@import "{}/client/styles/_test1";
+
+/*-----------------------------------
+	        Imports
+-----------------------------------*/
+@import "imports/styles/frameworks";
+
+/*-----------------------------------
+	     General Styles
+-----------------------------------*/
+
+body {
+  padding-top: 50px;
+  background-color: #f2f6f9;
+  color: $brand-danger;
+}

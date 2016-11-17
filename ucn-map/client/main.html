@@ -1,8 +1,12 @@
 <head>
   <title>ucn-map</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
-<body ng-app="ucn-map">
+<body ng-app="ucn-map" ng-strict-di="">
+<top-navigation></top-navigation>
+<div class="container">
     <p>Nothing here {{", before now" }}</p>
 
     <div ng-controller="PartiesListCtrl">
@@ -15,4 +19,7 @@
         <button ng-click="makeError()">make an angular error:-)</button>
     </div>
     <button onclick="console.log('clicked error');c+c;">make an error:-)</button>
+    <i class="fa fa-address-book"></i>
+</div>
+
 </body>

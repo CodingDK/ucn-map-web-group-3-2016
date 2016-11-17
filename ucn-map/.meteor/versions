@@ -25,6 +25,7 @@ ejson@1.0.13
 email@1.0.16
 es5-shim@4.6.15
 fastclick@1.0.13
+fourseven:scss@3.8.1
 geojson-utils@1.0.10
 hot-code-push@1.0.4
 html-tools@1.0.11
@@ -43,7 +44,7 @@ meteorhacks:inject-initial@1.0.4
 meteorhacks:kadira@2.30.2
 meteorhacks:meteorx@1.4.1
 meteorhacks:zones@1.6.0
-minifier-css@1.2.15
+minifier-css@1.1.13
 minifier-js@1.2.15
 minimongo@1.0.18
 mobile-experience@1.0.4
@@ -64,11 +65,11 @@ reactive-var@1.0.11
 reload@1.1.11
 retry@1.0.9
 routepolicy@1.0.12
+seba:minifiers-autoprefixer@1.0.1
 session@1.0.5
 shell-server@0.2.1
 spacebars@1.0.13
 spacebars-compiler@1.0.13
-standard-minifier-css@1.3.2
 standard-minifier-js@1.2.1
 templating@1.1.14
 templating-tools@1.0.5
