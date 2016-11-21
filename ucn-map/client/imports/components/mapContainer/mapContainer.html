@@ -2,6 +2,7 @@
     <ui-gmap-google-map center="location || map.center"
                         events="map.events"
                         zoom="map.zoom">
+        <ui-gmap-map-type options="imageMapType" show="map.showOverlay"></ui-gmap-map-type>
         <ui-gmap-polygon static="true"
                          ng-repeat="p in poly track by p.id"
                          path="p.path"
@@ -13,5 +14,6 @@
                          editable="p.editable">
         </ui-gmap-polygon>
     </ui-gmap-google-map>
+    <a class="btn btn-primary" ng-click="map.showOverlay = !map.showOverlay">Toggle overlay</a>
 </div>
 
