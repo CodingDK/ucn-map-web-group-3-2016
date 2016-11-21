@@ -23,6 +23,38 @@ class PartyMap {
             }
         };
 
+        this.poly = [
+            {
+                id: 1,
+                path: [
+                    {
+                        latitude: 50,
+                        longitude: -80
+                    },
+                    {
+                        latitude: 30,
+                        longitude: -120
+                    },
+                    {
+                        latitude: 20,
+                        longitude: -95
+                    }
+                ],
+                stroke: {
+                    color: '#6060FB',
+                    weight: 3
+                },
+                editable: true,
+                draggable: true,
+                geodesic: false,
+                visible: true,
+                fill: {
+                    color: '#ff0000',
+                    opacity: 0.8
+                }
+            }
+        ];
+
         this.marker = {
             options: {
                 draggable: true
