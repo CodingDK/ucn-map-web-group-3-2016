@@ -9,17 +9,7 @@
 <div class="container">
     <p>Nothing here {{", before now" }}</p>
 
-    <div ng-controller="PartiesListCtrl">
-        <ul>
-            <li ng-repeat="party in parties">
-                {{party.name}}
-                <p>{{party.description}}</p>
-            </li>
-        </ul>
-        <button ng-click="makeError()">make an angular error:-)</button>
-    </div>
-    <button onclick="console.log('clicked error');c+c;">make an error:-)</button>
-    <i class="fa fa-address-book"></i>
+    <party-map></party-map>
 </div>
 
 </body>
