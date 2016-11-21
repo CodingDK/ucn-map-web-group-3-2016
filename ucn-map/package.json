@@ -2,7 +2,8 @@
   "name": "ucn-map",
   "private": true,
   "scripts": {
-    "start": "meteor run"
+    "start": "meteor run",
+    "installNpmPackages": "meteor npm install"
   },
   "dependencies": {
     "angular": "^1.5.8",
