@@ -5,11 +5,12 @@ import 'angular-google-maps';
 import templateUrl from './mapContainer.html';
 
 
-class PartyMap {
-    constructor($scope) {
+class MapCtrl {
+    constructor($scope, $reactive) {
         'ngInject';
+        //$reactive(this).attach($scope);
 
-        this.map = {
+        $scope.map = {
             center: {
                 latitude: 57.0269181,
                 longitude: 9.7673928
@@ -23,7 +24,7 @@ class PartyMap {
             }
         };
 
-        this.poly = [
+        $scope.poly = [
             {
                 id: 1,
                 path: [
@@ -55,7 +56,7 @@ class PartyMap {
             }
         ];
 
-        this.marker = {
+        $scope.marker = {
             options: {
                 draggable: true
             },
@@ -63,14 +64,14 @@ class PartyMap {
         };
 
         this.setLocation = function(latitude, longitude) {
-            this.location = {
+            $scope.location = {
                 latitude,
                 longitude
             };
         }
     }
 }
-const name = 'partyMap';
+const name = 'mapContainer';
 
 // create a module
 export default angular.module(name, [
@@ -79,9 +80,9 @@ export default angular.module(name, [
     'uiGmapgoogle-maps'
 ]).component(name, {
     templateUrl,
-    controllerAs: name,
+    controllerAs: "ctrl",
     // bindings: {
     //     location: '='
     // },
-    controller: PartyMap
+    controller: MapCtrl
 });
