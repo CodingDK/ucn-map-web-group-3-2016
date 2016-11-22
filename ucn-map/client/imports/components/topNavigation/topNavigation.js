@@ -1,6 +1,8 @@
 import angular from 'angular';
 import angularMeteor from 'angular-meteor';
 import templateUrl from './topNavigation.html';
+
+import uiRouter from 'angular-ui-router';
 "use strict";
 /**
  * Controller for the navigation in top of pages
@@ -21,7 +23,8 @@ const name = 'topNavigation';
 
 // create a module
 export default angular.module(name, [
-    angularMeteor
+    angularMeteor,
+    uiRouter
 ]).component(name, {
     templateUrl,
     controllerAs: name,

@@ -2,6 +2,7 @@
   <title>ucn-map</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href="/">
 </head>
 
 <body ng-app="ucn-map-app" ng-strict-di="">
@@ -11,6 +12,9 @@
 
 
     <map-container></map-container>
+    <a ui-sref="hello">Hello</a>
+    <a ui-sref="about">About</a>
+    <ui-view></ui-view>
 </div>
 
 </body>
