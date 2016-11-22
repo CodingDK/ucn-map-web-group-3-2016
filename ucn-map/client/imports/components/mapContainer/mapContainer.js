@@ -3,6 +3,7 @@ import angularMeteor from 'angular-meteor';
 import 'angular-simple-logger';
 import 'angular-google-maps';
 import templateUrl from './mapContainer.html';
+import roomJson from './rooms.json';
 
 
 class MapCtrl {
@@ -12,10 +13,10 @@ class MapCtrl {
 
         $scope.map = {
             center: {
-                latitude: 57.0269181,
-                longitude: 9.7673928
+                latitude: 57.0208519,
+                longitude: 9.8845859
             },
-            zoom: 9,
+            zoom: 18,
             events: {
                 click: (mapModel, eventName, originalEventArgs) => {
                     this.setLocation(originalEventArgs[0].latLng.lat(), originalEventArgs[0].latLng.lng());
@@ -26,37 +27,7 @@ class MapCtrl {
             showOverlay: true,
         };
 
-        $scope.poly = [
-            {
-                id: 1,
-                path: [
-                    {
-                        latitude: 50,
-                        longitude: -80
-                    },
-                    {
-                        latitude: 30,
-                        longitude: -120
-                    },
-                    {
-                        latitude: 20,
-                        longitude: -95
-                    }
-                ],
-                stroke: {
-                    color: '#6060FB',
-                    weight: 3
-                },
-                editable: true,
-                draggable: true,
-                geodesic: false,
-                visible: true,
-                fill: {
-                    color: '#ff0000',
-                    opacity: 0.8
-                }
-            }
-        ];
+        $scope.poly = MapCtrl.getRoomsAsPolygons();
 
         uiGmapGoogleMapApi.then(function(maps) {
             // (google is defined)
@@ -109,6 +80,27 @@ class MapCtrl {
             return {x: x, y: y};
         };
     }
+
+    static getRoomsAsPolygons = function() {
+        let newArr = [];
+        for (let room of roomJson) {
+            newArr.push({
+                id: room.name,
+                path: room.path,
+                stroke: {
+                    color: '#6060FB',
+                    weight: 1
+                },
+                visible: true,
+                fill: {
+                    color: '#ff0000',
+                    opacity: 0.5
+                }
+            });
+        }
+        return newArr;
+    }
+
 }
 
 const name = 'mapContainer';
