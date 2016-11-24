@@ -16,7 +16,6 @@
 body {
   padding-top: 50px;
   background-color: #f2f6f9;
-  color: $brand-danger;
 }
 
 .angular-google-map-container {
@@ -24,3 +23,14 @@ body {
   width: 400px;
 }
 
+// Fix issue with angular-bootstrap datepicker popup
+// Found at https://github.com/angular-ui/bootstrap/issues/2475#issuecomment-49469969
+.glyphicon {
+  @extend .fa;
+  &.glyphicon-chevron-right {
+    @extend .fa-chevron-right;
+  }
+  &.glyphicon-chevron-left {
+    @extend .fa-chevron-left;
+  }
+}
