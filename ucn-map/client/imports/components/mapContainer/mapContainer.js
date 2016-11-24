@@ -117,4 +117,9 @@ export default angular.module(name, [
     //     location: '='
     // },
     controller: MapCtrl
+}).config(function(uiGmapGoogleMapApiProvider) {
+    'ngInject';
+    uiGmapGoogleMapApiProvider.configure({
+        key: 'AIzaSyAUpSnIVNolxk8A9-mv4O9nsFZQ7t_NzYw'
+    });
 });
