@@ -1,0 +1,34 @@
+/*-----------------------------------
+	General
+-----------------------------------*/
+
+//Needed for fixing fonts path (for glyphicons, but we use font-awesome instead)
+//$icon-font-path: "../lib/bootstrap-sass/assets/fonts/bootstrap/";
+
+/*-----------------------------------
+	Navbar
+-----------------------------------*/
+
+// Reset inverted navbar basics
+$navbar-inverse-color:                      #486D8A;
+$navbar-inverse-bg:                         #6E8BA4;
+//$navbar-inverse-border:                     darken($navbar-inverse-bg, 10%) !default;
+
+// Inverted navbar links
+$navbar-inverse-link-color:                 #A3B8CA;
+//$navbar-inverse-link-hover-color:           #fff !default;
+//$navbar-inverse-link-hover-bg:              transparent !default;
+//$navbar-inverse-link-active-color:          $navbar-inverse-link-hover-color !default;
+//$navbar-inverse-link-active-bg:             darken($navbar-inverse-bg, 10%) !default;
+//$navbar-inverse-link-disabled-color:        #444 !default;
+//$navbar-inverse-link-disabled-bg:           transparent !default;
+
+// Inverted navbar brand label
+//$navbar-inverse-brand-color:                $navbar-inverse-link-color !default;
+//$navbar-inverse-brand-hover-color:          #fff !default;
+//$navbar-inverse-brand-hover-bg:             transparent !default;
+
+// Inverted navbar toggle
+$navbar-inverse-toggle-hover-bg:            $navbar-inverse-link-color;
+//$navbar-inverse-toggle-icon-bar-bg:         #fff !default;
+$navbar-inverse-toggle-border-color:        $navbar-inverse-link-color;

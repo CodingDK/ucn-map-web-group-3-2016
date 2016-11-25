@@ -1,0 +1,30 @@
+<nav class="navbar navbar-inverse navbar-fixed-top"> <!-- data-ng-controller="navCtrl" -->
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" ng-click="toggle()">
+                <span class="sr-only">Vis menu</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand">UCN-Map</a>
+        </div>
+        <div class="collapse navbar-collapse" uib-collapse="isNavCollapsed">
+            <ul class="nav navbar-nav">
+                <li class=""> <!-- //TODO add IsActive -->
+<<<<<<< HEAD
+                    <a>Home</a>
+=======
+                    <a ui-sref="home">Home</a>
+                </li>
+                <li>
+                    <a ui-sref="modal" ui-sref-active="active">Modal</a>
+                </li>
+                <li>
+                    <a ui-sref="selectClassModal" ui-sref-active="active">Select Class</a>
+>>>>>>> origin/master
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

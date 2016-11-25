@@ -1,4 +1,6 @@
 node_modules/
+imports/node_copy/
+public/node_copy/
 
 ### WebStorm ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm

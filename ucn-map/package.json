@@ -2,11 +2,26 @@
   "name": "ucn-map",
   "private": true,
   "scripts": {
-    "start": "meteor run"
+    "start": "meteor run",
+    "installNpmPackages": "meteor npm install"
   },
   "dependencies": {
     "angular": "^1.5.8",
+    "angular-google-maps": "2.3.2",
     "angular-meteor": "^1.3.11",
+    "angular-simple-logger": "^0.1.7",
+    "angular-ui-bootstrap": "^2.2.0",
+<<<<<<< HEAD
+=======
+    "angular-ui-router": "^0.3.2",
+>>>>>>> origin/master
+    "babel-runtime": "^6.18.0",
+    "bootstrap-sass": "^3.3.7",
+    "font-awesome": "^4.7.0",
     "meteor-node-stubs": "~0.2.0"
+  },
+  "devDependencies": {
+    "del": "^2.2.2",
+    "gulp": "^3.9.1"
   }
 }
