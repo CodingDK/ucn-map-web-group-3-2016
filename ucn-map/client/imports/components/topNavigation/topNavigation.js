@@ -10,23 +10,23 @@ import uiRouter from 'angular-ui-router';
 class NavCtrl {
     constructor($scope, $reactive) {
         'ngInject';
-        //$reactive(this).attach($scope);
-        $scope.isNavCollapsed = true;
-
-        $scope.toggle = function() {
-            $scope.isNavCollapsed = !$scope.isNavCollapsed;
-        };
+        $reactive(this).attach($scope);
+        this.isNavCollapsed = true;
     }
+
+    toggle = function() {
+        this.isNavCollapsed = !this.isNavCollapsed;
+    };
 }
 
 const name = 'topNavigation';
 
 // create a module
 export default angular.module(name, [
-    angularMeteor,
-    uiRouter
+   angularMeteor,
+   uiRouter
 ]).component(name, {
     templateUrl,
-    controllerAs: name,
+    //controllerAs: name,
     controller: NavCtrl
 });
