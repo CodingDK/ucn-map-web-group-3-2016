@@ -4,3 +4,4 @@ node_js:
 before_install:
   - "cd ucn-map"
   - "curl -L http://git.io/ejPSng | /bin/sh"
+sudo: required
