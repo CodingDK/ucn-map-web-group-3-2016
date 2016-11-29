@@ -6,5 +6,5 @@ before_install:
   - "cd ucn-map"
   - "curl https://install.meteor.com/ | sh"
   - "meteor npm install -g gulp"
-  - "meteor npm install"
+before_script:
   - "gulp preparingForSass"
