@@ -4,7 +4,7 @@ import templateUrl from './templateModal.html';
 
 "use strict";
 class TemplateModalCtrl {
-    constructor($uibModal, $state) {
+    constructor($uibModal, $state, $timeout) {
         'ngInject';
 
         $uibModal.open({
@@ -22,7 +22,7 @@ class TemplateModalCtrl {
         }).result.then(doClosureFn, doDismissFn);
 
         function doClosureFn() {
-            setTimeout(function () {
+            $timeout(function () {
                 $state.go('selectClassModal');
             },100);
         }
