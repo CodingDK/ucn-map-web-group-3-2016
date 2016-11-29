@@ -1,8 +1,9 @@
-<div class="angular-google-map-container">
+<div class="map-container">
     <ui-gmap-google-map center="$ctrl.location || $ctrl.map.center"
                         events="$ctrl.map.events"
                         zoom="$ctrl.map.zoom"
-                        control="$ctrl.map.control">
+                        control="$ctrl.map.control"
+                        options="$ctrl.map.options">
         <ui-gmap-polygon static="true"
                          ng-repeat="p in $ctrl.poly track by p.id"
                          path="p.path"
@@ -14,5 +15,6 @@
                          editable="p.editable">
         </ui-gmap-polygon>
     </ui-gmap-google-map>
+    <ui-view></ui-view>
 </div>
 

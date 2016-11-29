@@ -25,7 +25,11 @@ class MapCtrl {
                     $scope.$apply();
                 }
             },
-            control: {}
+            control: {},
+            options: {
+                mapTypeControl: false,
+                streetViewControl: false
+            }
         };
 
         this.poly = MapCtrl.getRoomsAsPolygons();
