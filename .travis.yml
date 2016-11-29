@@ -4,6 +4,7 @@ node_js:
   - "4"
 before_install:
   - "cd ucn-map"
+  - export PATH="$HOME/.meteor:$PATH"
   - "curl https://install.meteor.com/ | sh"
   - "meteor npm install -g gulp"
 before_script:
