@@ -41,7 +41,7 @@ export default angular.module(name, [
 ]).directive(name, function () {
     return {
         //templateUrl,
-        controllerAs: name,
+        //controllerAs: name,
         controller: TemplateModalCtrl
     }
 });
