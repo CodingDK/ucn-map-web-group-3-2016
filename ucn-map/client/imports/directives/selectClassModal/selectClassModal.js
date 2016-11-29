@@ -1,8 +1,11 @@
+import angular from 'angular';
+import angularMeteor from 'angular-meteor';
 import templateUrl from "./selectClassModal.html";
 
-export class SelectClassModal {
-    onEnter = function($stateParams, $state, $uibModal) {
+class SelectClassModalCtrl {
+    constructor($uibModal, $state) {
         'ngInject';
+
         $uibModal.open({
             templateUrl,
             controller: ['$scope', function($scope) {
@@ -42,3 +45,16 @@ export class SelectClassModal {
         }
     }
 }
+
+const name = 'selectClassModal';
+
+// create a module
+export default angular.module(name, [
+    angularMeteor
+]).directive(name, function () {
+    return {
+        //templateUrl,
+        //controllerAs: name,
+        controller: SelectClassModalCtrl
+    }
+});

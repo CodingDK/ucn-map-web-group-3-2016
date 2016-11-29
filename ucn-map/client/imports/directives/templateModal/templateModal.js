@@ -9,11 +9,11 @@ class TemplateModalCtrl {
 
         $uibModal.open({
             templateUrl,
-            controller: ['$scope', function($scope) {
+            controller: function($scope) {
                 $scope.dismiss = function() {
                     $scope.$dismiss();
                 };
-            }],
+            },
             /*resolve: {
              items: function () {
              return [1,2,3];

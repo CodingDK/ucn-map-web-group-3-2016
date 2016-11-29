@@ -5,9 +5,9 @@ import uiRouter from 'angular-ui-router';
 import {name as logException} from './imports/factories/logException';
 import {name as TopNavigation} from './imports/components/topNavigation/topNavigation';
 import {name as MapContainer} from './imports/components/mapContainer/mapContainer';
-import {SimpleModal} from './imports/modals/simpleModal/simpleModal';
-import {SelectClassModal} from './imports/modals/selectClassModal/selectClassModal';
 import {name as TemplateModal} from './imports/directives/templateModal/templateModal';
+import {name as SelectClassModal} from './imports/directives/selectClassModal/selectClassModal';
+
 
 angular.module('ucn-map-app', [
     angularMeteor,
@@ -16,7 +16,8 @@ angular.module('ucn-map-app', [
     uiRouter,
     TopNavigation,
     MapContainer,
-    TemplateModal
+    TemplateModal,
+    SelectClassModal
 ])
 .config(function routeConfig($stateProvider, $urlRouterProvider, $locationProvider)  {
     'ngInject';
@@ -27,13 +28,9 @@ angular.module('ucn-map-app', [
         template: '',
         url: '/home'
     });
-    $stateProvider.state("modal", {
-        url: "/modal",
-        onEnter: new SimpleModal().onEnter
-    });
     $stateProvider.state("selectClassModal", {
-        url: "/selectClass",
-        onEnter: new SelectClassModal().onEnter
+        template: '<select-class-modal></select-class-modal>',
+        url: "/selectClass"
     });
     $stateProvider.state("templateModal", {
         template: '<template-modal></template-modal>',
