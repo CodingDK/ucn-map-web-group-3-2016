@@ -5,3 +5,12 @@ before_install:
   - "cd ucn-map"
   - "curl -L http://git.io/ejPSng | /bin/sh"
 sudo: required
+
+env:
+  - CXX=g++-4.8
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+- g++-4.8
