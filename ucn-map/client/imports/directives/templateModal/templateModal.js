@@ -38,7 +38,7 @@ const name = 'templateModal';
 // create a module
 export default angular.module(name, [
     angularMeteor
-]).directive(name, function () {
+]).directive(name, function templateModalDirective() {
     return {
         //templateUrl,
         //controllerAs: name,
