@@ -1,7 +1,7 @@
-sudo: required
+
 language: node_js
 node_js:
-  - "0.10"
+  - "4"
 before_install:
   - "cd ucn-map"
   - "curl https://install.meteor.com/ | sh"
