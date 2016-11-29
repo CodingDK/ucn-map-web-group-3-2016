@@ -1,10 +1,10 @@
+sudo: required
 language: node_js
 node_js:
   - "0.10"
 before_install:
   - "cd ucn-map"
   - "curl -L http://git.io/ejPSng | /bin/sh"
-sudo: required
 
 env:
   - CXX=g++-4.8
@@ -13,4 +13,4 @@ addons:
     sources:
       - ubuntu-toolchain-r-test
     packages:
-- g++-4.8
+      - g++-4.8
