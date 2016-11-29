@@ -8,7 +8,7 @@ class SelectClassModalCtrl {
 
         $uibModal.open({
             templateUrl,
-            controller: ['$scope', function($scope) {
+            controller: function($scope, mapService) {
                 $scope.selectedClass = undefined;
                 $scope.txtDate = new Date();
                 $scope.classArray = ['pwe0916', 'pwe0216', 'pwe1216'];
@@ -25,10 +25,15 @@ class SelectClassModalCtrl {
                 $scope.datePopup = {
                     opened: false
                 };
+                $scope.find = function () {
+                    mapService.setRoomInCenter("4.0.30");
+                    $scope.dismiss();
+                    //mapService.setLocation(57.0208519, 9.8845859);
+                }
                 $scope.dismiss = function() {
                     $scope.$dismiss();
                 };
-            }],
+            },
             size: "sm",
             /*resolve: {
              items: function () {

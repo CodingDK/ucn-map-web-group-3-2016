@@ -7,9 +7,11 @@ import roomJson from './rooms.json';
 
 
 class MapCtrl {
-    constructor($scope, $reactive) {
+    constructor($scope, $reactive, mapService) {
         'ngInject';
         $reactive(this).attach($scope);
+
+        mapService.mapInstance = this;
 
         this.map = {
             center: {
@@ -23,21 +25,47 @@ class MapCtrl {
                     $scope.$apply();
                 }
             },
-
-            showOverlay: true,
+            control: {}
         };
 
         this.poly = MapCtrl.getRoomsAsPolygons();
+
+        this.setRoomInCenter = function(roomId) {
+            var founded = this.poly.filter(function( obj ) {
+                return obj.id === roomId;
+            })[0];
+            if (typeof founded === "undefined") {
+                //TODO handle if a room not founded?
+                console.log("room not founded! ", roomId);
+                return;
+            }
+            var bounds = new google.maps.LatLngBounds();
+
+            var path = founded.path;
+            for (var i = 0, length = path.length; i < length; i++) {
+                var cor = path[i];
+                bounds.extend(new google.maps.LatLng(cor.latitude, cor.longitude));
+            }
+            var mapInstance = this.map.control.getGMap();
+            mapInstance.fitBounds(bounds);
+            mapInstance.setZoom(19);
+        }
+
+        //TODO maybe need to test this in same way?
+        $scope.$on('$destroy', function destroyMapContainer() {
+            console.log("destroyed map!");
+            mapService.mapInstance = undefined;
+        })
     }
 
-    setLocation = function(latitude, longitude) {
+    setLocation(latitude, longitude) {
         this.location = {
             latitude,
             longitude
         };
     }
 
-    static getRoomsAsPolygons = function() {
+    static getRoomsAsPolygons() {
         let newArr = [];
         for (let room of roomJson) {
             newArr.push({

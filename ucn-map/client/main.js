@@ -7,6 +7,7 @@ import {name as TopNavigation} from './imports/components/topNavigation/topNavig
 import {name as MapContainer} from './imports/components/mapContainer/mapContainer';
 import {name as TemplateModal} from './imports/directives/templateModal/templateModal';
 import {name as SelectClassModal} from './imports/directives/selectClassModal/selectClassModal';
+import {name as MapService} from './imports/services/mapService/mapService';
 
 
 angular.module('ucn-map-app', [
@@ -17,7 +18,8 @@ angular.module('ucn-map-app', [
     TopNavigation,
     MapContainer,
     TemplateModal,
-    SelectClassModal
+    SelectClassModal,
+    MapService
 ])
 .config(function routeConfig($stateProvider, $urlRouterProvider, $locationProvider)  {
     'ngInject';
