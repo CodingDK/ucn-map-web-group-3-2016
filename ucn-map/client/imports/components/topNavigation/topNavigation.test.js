@@ -24,8 +24,8 @@ describe("topNavigation", function () {
             $rootScope.$digest();
         });
 
-        it('first link equals to "UCN-Map"', function () {
-            assert.equal(element[0].querySelector('a').innerText, 'UCN-Map');
+        it('top-navigation is defined', function () {
+            assert.isDefined(element[0], 'top-navigation is defined');
         });
     });
     describe('controller', function() {
