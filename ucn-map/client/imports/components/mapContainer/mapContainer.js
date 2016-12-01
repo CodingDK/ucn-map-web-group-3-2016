@@ -3,8 +3,7 @@ import angularMeteor from 'angular-meteor';
 import 'angular-simple-logger';
 import 'angular-google-maps';
 import templateUrl from './mapContainer.html';
-import roomJson from './rooms.json';
-
+import {Rooms} from '../../../../collections/rooms';
 
 class MapCtrl {
     constructor($scope, $reactive, mapService) {
@@ -32,7 +31,13 @@ class MapCtrl {
             }
         };
 
-        this.poly = MapCtrl.getRoomsAsPolygons();
+        this.helpers({
+            poly() {
+                return MapCtrl.getRoomsAsPolygons(Rooms.find().fetch());
+            }
+        });
+
+        //this.poly = MapCtrl.getRoomsAsPolygons();
 
         this.setRoomInCenter = function(roomId) {
             var founded = this.poly.filter(function( obj ) {
@@ -69,9 +74,9 @@ class MapCtrl {
         };
     }
 
-    static getRoomsAsPolygons() {
+    static getRoomsAsPolygons(roomSource) {
         let newArr = [];
-        for (let room of roomJson) {
+        for (let room of roomSource) {
             newArr.push({
                 id: room.name,
                 path: room.path,
