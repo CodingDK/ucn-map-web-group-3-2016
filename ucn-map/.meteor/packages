@@ -22,3 +22,4 @@ seba:minifiers-autoprefixer
 fourseven:scss
 practicalmeteor:mocha
 dispatch:mocha-phantomjs
+http
