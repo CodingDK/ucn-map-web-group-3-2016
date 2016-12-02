@@ -3,7 +3,7 @@ import angularMeteor from 'angular-meteor';
 import 'angular-simple-logger';
 import 'angular-google-maps';
 import templateUrl from './mapContainer.html';
-import {Rooms} from '../../../../collections/rooms';
+import {Rooms} from '../../../../imports/collections/rooms';
 
 class MapCtrl {
     constructor($scope, $reactive, mapService) {
@@ -30,6 +30,7 @@ class MapCtrl {
                 streetViewControl: false
             }
         };
+        this.subscribe('rooms');
 
         this.helpers({
             poly() {
