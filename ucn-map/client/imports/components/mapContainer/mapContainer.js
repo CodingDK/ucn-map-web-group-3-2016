@@ -79,7 +79,7 @@ class MapCtrl {
         let newArr = [];
         for (let room of roomSource) {
             newArr.push({
-                id: room.name,
+                id: room._id,
                 path: room.path,
                 stroke: {
                     color: '#6060FB',

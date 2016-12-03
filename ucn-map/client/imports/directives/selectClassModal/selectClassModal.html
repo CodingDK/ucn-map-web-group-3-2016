@@ -5,12 +5,13 @@
     <h3 class="modal-title" id="modal-title">Find your classroom</h3>
 </div>
 <div class="modal-body" id="modal-body">
-    <!--<p>Model: {{selectedClass}}</p>-->
+    <!--<p>Model: {{selectedClass | json}}</p>-->
+    <!--<p>getClasses(): {{getClasses() | json}}</p>-->
     <form>
         <div class="form-group">
             <label for="className">Classname:</label>
             <input type="text" class="form-control" id="className" ng-model="selectedClass"
-                   uib-typeahead="name for name in classArray | filter:$viewValue | limitTo:8">
+                   uib-typeahead="e as e._id for e in getClasses() | filter:$viewValue | limitTo:8">
         </div>
         <div class="form-group">
             <label for="txtDate">Date:</label>
