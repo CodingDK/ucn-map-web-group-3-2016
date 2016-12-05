@@ -23,3 +23,5 @@ fourseven:scss
 practicalmeteor:mocha
 dispatch:mocha-phantomjs
 http
+npm-bcrypt
+nimble:restivus
