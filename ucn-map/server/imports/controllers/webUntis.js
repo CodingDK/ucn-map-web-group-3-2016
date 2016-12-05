@@ -2,6 +2,11 @@ import {Meteor} from 'meteor/meteor';
 import { HTTP } from 'meteor/http';
 import {Classes} from '../../../imports/collections/classes';
 import {Rooms} from '../../../imports/collections/rooms';
+//import async from 'async';
+import parallel from 'async/parallel';
+
+const fs = require('fs');
+const path = require('path');
 
 export class WebUntisCtrl {
 
@@ -12,6 +17,7 @@ export class WebUntisCtrl {
     checkWebUntisInformation() {
         this.checkClassList();
         this.checkRoomList();
+        this.checkSession();
     }
 
     checkClassList() {
@@ -129,5 +135,67 @@ export class WebUntisCtrl {
         }
         HTTP.post(url, options, onDone);
         //WebUntisCtrl.log("### finish fetchPageConfig ###");
+    }
+
+    checkSession() {
+        const basePath = path.resolve('.').split('.meteor')[0];
+        console.log("basePath", basePath);
+        const sessionPath = basePath + "/server/imports/data/sessions.json";
+        if (!fs.existsSync(sessionPath)) {
+            console.log("TEST" , false);
+            this.createSessionFile(sessionPath);
+        } else {
+
+            console.log("TEST" , true);
+        }
+    }
+
+    createSessionFile(sessionPath) {
+        const url = "http://ucn.brosa.dk/get_lessons_min.php";//?;
+
+        let elementId = 646;
+        let date = "2016-12-05";
+
+        let query = "type=4&element=" + elementId + "&date=" + date;
+        console.log("query", query);
+        let options = {
+            query: query,
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0'
+            }
+        };
+
+        let testData = [];
+
+        // HTTP.get(url, options, function doneGettingSession(error, result) {
+        //    console.log("error", error);
+        //    console.log("result", result);
+        //     testData.concat(result);
+        // });
+        //
+        // HTTP.get(url, options, function doneGettingSession(error, result) {
+        //     console.log("error", error);
+        //     console.log("result", result);
+        //     testData.concat(result);
+        // });
+
+        // parallel([
+        //     test,
+        //     test
+        // ], function(err, results) {
+        //     // optional callback
+        //     console.log("results", results);
+        // });
+        //
+        // function test(callback) {
+        //     console.log("## hej ##");
+        //     callback(null, "callback! ");
+        // }
+
+        // HTTP.get(url, options, function doneGettingSession(error, result) {
+        //    console.log("error", error);
+        //    console.log("result", result);
+        // });
+
     }
 }
