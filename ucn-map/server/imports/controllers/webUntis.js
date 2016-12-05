@@ -2,8 +2,6 @@ import {Meteor} from 'meteor/meteor';
 import { HTTP } from 'meteor/http';
 import {Classes} from '../../../imports/collections/classes';
 import {Rooms} from '../../../imports/collections/rooms';
-//import async from 'async';
-import parallel from 'async/parallel';
 
 const fs = require('fs');
 const path = require('path');
