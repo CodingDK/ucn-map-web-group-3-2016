@@ -10,6 +10,11 @@ const path = require('path');
 
 export class WebUntisCtrl {
 
+    constructor() {
+        const basePath = path.resolve('.').split('.meteor')[0];
+        this.sessionFilePath = basePath + "server/imports/data/sessions.json";
+    }
+
     static log(message) {
         console.log("webUntis.js - " + message)
     }
@@ -17,7 +22,7 @@ export class WebUntisCtrl {
     checkWebUntisInformation() {
         this.checkClassList();
         this.checkRoomList();
-        this.checkSession();
+        this.checkSessions();
     }
 
     checkClassList() {
@@ -63,7 +68,7 @@ export class WebUntisCtrl {
     }
 
     checkRoomList() {
-        let roomsCur = Rooms.find({webUntisId: null});
+        let roomsCur = Rooms.find({webUntisId: null, type: 1});
         if (roomsCur.count() !== 0) {
             this.updateRooms(roomsCur);
         } else {
@@ -101,7 +106,7 @@ export class WebUntisCtrl {
                         );
                         count += 1;
                     } else {
-                        WebUntisCtrl.log("Couldn't find room in webUntis: " + room.name);
+                        WebUntisCtrl.log("Couldn't find room in webUntis: " + room._id);
                     }
                     //WebUntisCtrl.log("webUntisRoom", webUntisRoom);
                 });
@@ -137,65 +142,58 @@ export class WebUntisCtrl {
         //WebUntisCtrl.log("### finish fetchPageConfig ###");
     }
 
-    checkSession() {
-        const basePath = path.resolve('.').split('.meteor')[0];
-        console.log("basePath", basePath);
-        const sessionPath = basePath + "/server/imports/data/sessions.json";
-        if (!fs.existsSync(sessionPath)) {
-            console.log("TEST" , false);
-            this.createSessionFile(sessionPath);
+    checkSessions() {
+        if (!fs.existsSync(this.sessionFilePath)) {
+            this.createSessionFile();
         } else {
-
-            console.log("TEST" , true);
+            WebUntisCtrl.log("Session File already exist");
         }
+        //TODO Insert sessions from file in mongo
     }
 
-    createSessionFile(sessionPath) {
-        const url = "http://ucn.brosa.dk/get_lessons_min.php";//?;
+    createSessionFile() {
+        //WebUntisCtrl.log("### started creating sessions ###");
+        let roomsCur = Rooms.find({webUntisId: {$ne:null}, type: 1}).fetch();
+        const path = this.sessionFilePath;
+        let doneCount = roomsCur.length;
+        let sessions = [];
+        roomsCur.forEach(function(room) {
+            //WebUntisCtrl.log( "room: " + room._id + "= id:"+room.webUntisId );
+            WebUntisCtrl.fetchSessions(room, function doneGettingSession(error, result) {
+                //WebUntisCtrl.log("error", error);
+                //WebUntisCtrl.log("result", result.data);
+                if (error) {
+                    WebUntisCtrl.log("Error getting sessions for room " + room._id + ": " + error);
+                } else {
+                    sessions = sessions.concat(result.data);
+                }
+                doneCount -= 1;
+                handleIfGettingIsDone();
+            });
+        });
+        function handleIfGettingIsDone() {
+            if (doneCount === 0) {
+                fs.writeFile(path, JSON.stringify(sessions), function(err) {
+                    if(err) {
+                        return WebUntisCtrl.log("Error saving session file: " + err);
+                    }
+                    WebUntisCtrl.log("Sessions file was saved with " + sessions.length + " sessions");
+                });
+            }
+        }
+        //WebUntisCtrl.log("### ended creating sessions ###");
+    }
 
-        let elementId = 646;
+    static fetchSessions(room, onDone) {
+        let elementId = room.webUntisId;
         let date = "2016-12-05";
-
-        let query = "type=4&element=" + elementId + "&date=" + date;
-        console.log("query", query);
+        const url = "http://ucn.brosa.dk/get_lessons_min.php";//?;
         let options = {
-            query: query,
+            query: "type=4&element=" + elementId + "&date=" + date,
             headers: {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0'
             }
         };
-
-        let testData = [];
-
-        // HTTP.get(url, options, function doneGettingSession(error, result) {
-        //    console.log("error", error);
-        //    console.log("result", result);
-        //     testData.concat(result);
-        // });
-        //
-        // HTTP.get(url, options, function doneGettingSession(error, result) {
-        //     console.log("error", error);
-        //     console.log("result", result);
-        //     testData.concat(result);
-        // });
-
-        // parallel([
-        //     test,
-        //     test
-        // ], function(err, results) {
-        //     // optional callback
-        //     console.log("results", results);
-        // });
-        //
-        // function test(callback) {
-        //     console.log("## hej ##");
-        //     callback(null, "callback! ");
-        // }
-
-        // HTTP.get(url, options, function doneGettingSession(error, result) {
-        //    console.log("error", error);
-        //    console.log("result", result);
-        // });
-
+        HTTP.get(url, options, onDone);
     }
 }
