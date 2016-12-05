@@ -7,7 +7,7 @@ insertTestData = function () {
     //console.log("JSON Rooms", roomJson);
     const logName = "insertScript.js - ";
     let roomsCount = Rooms.find().count();
-    if (roomsCount !== 4) {
+    if (roomsCount !== roomJson.length) {
         let removed = Rooms.remove({});
         if (removed !== 0) console.log(logName + "removed " + removed + " rooms from mongo");
         let count = 0;
