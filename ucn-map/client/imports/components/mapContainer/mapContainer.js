@@ -6,7 +6,7 @@ import templateUrl from './mapContainer.html';
 import {Rooms} from '../../../../imports/collections/rooms';
 
 class MapCtrl {
-    constructor($scope, $reactive, mapService) {
+    constructor($scope, $reactive, mapService, $state) {
         'ngInject';
         $reactive(this).attach($scope);
 
@@ -34,7 +34,7 @@ class MapCtrl {
 
         this.helpers({
             poly() {
-                return MapCtrl.getRoomsAsPolygons(Rooms.find().fetch());
+                return MapCtrl.getRoomsAsPolygons(Rooms.find().fetch(), $state);
             }
         });
 
@@ -75,7 +75,7 @@ class MapCtrl {
         };
     }
 
-    static getRoomsAsPolygons(roomSource) {
+    static getRoomsAsPolygons(roomSource, $state) {
         let newArr = [];
         for (let room of roomSource) {
             newArr.push({
@@ -93,11 +93,9 @@ class MapCtrl {
                 },
                events:{
                    click: (mapModel, eventName, originalEventArgs) => {
-                       alert("hej");//TODO: Modal indsættes
+                       $state.go("roomInfoModal", {roomId: room._id});
                    }
-
                }
-
             });
         }
         return newArr;

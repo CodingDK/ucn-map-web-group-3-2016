@@ -42,6 +42,6 @@ angular.module('ucn-map-app', [
     });
     $stateProvider.state("roomInfoModal", {
         template: '<room-info-modal></room-info-modal>',
-        url: '/roomInfoModal'
+        url: '/room/:roomId'
     });
 });
