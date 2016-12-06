@@ -7,6 +7,7 @@ import {name as TopNavigation} from './imports/components/topNavigation/topNavig
 import {name as MapContainer} from './imports/components/mapContainer/mapContainer';
 import {name as TemplateModal} from './imports/directives/templateModal/templateModal';
 import {name as SelectClassModal} from './imports/directives/selectClassModal/selectClassModal';
+import {name as RoomInfoModal} from './imports/directives/roomInfoModal/roomInfoModal';
 import {name as MapService} from './imports/services/mapService/mapService';
 
 
@@ -19,7 +20,8 @@ angular.module('ucn-map-app', [
     MapContainer,
     TemplateModal,
     SelectClassModal,
-    MapService
+    MapService,
+    RoomInfoModal
 ])
 .config(function routeConfig($stateProvider, $urlRouterProvider, $locationProvider)  {
     'ngInject';
@@ -37,5 +39,9 @@ angular.module('ucn-map-app', [
     $stateProvider.state("templateModal", {
         template: '<template-modal></template-modal>',
         url: '/templateModal'
+    });
+    $stateProvider.state("roomInfoModal", {
+        template: '<room-info-modal></room-info-modal>',
+        url: '/roomInfoModal'
     });
 });

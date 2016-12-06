@@ -88,7 +88,7 @@ class MapCtrl {
                 visible: true,
                 fill: {
                     color: '#ff0000',
-                    opacity: 0.5
+                    opacity: 0.0
 
                 },
                events:{
@@ -104,6 +104,7 @@ class MapCtrl {
     }
 
 }
+
 
 const name = 'mapContainer';
 
@@ -121,3 +122,4 @@ export default angular.module(name, [
         key: 'AIzaSyAUpSnIVNolxk8A9-mv4O9nsFZQ7t_NzYw'
     });
 });
+

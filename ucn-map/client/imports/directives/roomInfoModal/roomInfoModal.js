@@ -3,7 +3,7 @@ import angularMeteor from 'angular-meteor';
 import templateUrl from './roomInfoModal.html';
 
 "use strict";
-class TemplateModalCtrl {
+class RoomInfoModal {
     constructor($uibModal, $state, $timeout) {
         'ngInject';
 
@@ -23,7 +23,7 @@ class TemplateModalCtrl {
 
         function doClosureFn() {
             $timeout(function () {
-                $state.go('selectClassModal');
+                $state.go('home');
             },100);
         }
         function doDismissFn() {
@@ -33,15 +33,15 @@ class TemplateModalCtrl {
     }
 }
 
-const name = 'templateModal';
+const name = 'roomInfoModal';
 
 // create a module
 export default angular.module(name, [
     angularMeteor
-]).directive(name, function templateModalDirective() {
+]).directive(name, function roomInfoModalDirective() {
     return {
         //templateUrl,
         //controllerAs: name,
-        controller: TemplateModalCtrl
+        controller: RoomInfoModal
     }
 });
