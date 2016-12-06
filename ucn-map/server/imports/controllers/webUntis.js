@@ -157,40 +157,40 @@ export class WebUntisCtrl {
                 WebUntisCtrl.log("Session File couldn't be readed, error: " + err);
             }
 
-            let sessionsCount = Sessions.find().count();
             let sessionJson = JSON.parse(data);
-            if (sessionJson.length === sessionsCount) {
-                let firstObjInJson = sessionJson[0];
-                let firstObjInMongo = Sessions.findOne({title: firstObjInJson.title,
-                    start: Date.parse(firstObjInJson.start),
-                    end: Date.parse(firstObjInJson.end)
+            let firstObjInJson = sessionJson[0];
+            let firstObjInMongo = Sessions.findOne({title: firstObjInJson.title,
+                start: Date.parse(firstObjInJson.start),
+                end: Date.parse(firstObjInJson.end)
+            });
+
+            if (typeof firstObjInMongo !== "undefined") {
+                let sessionsCount = Sessions.find().count();
+                WebUntisCtrl.log("Sessions in mongo are already in mongo, count: " + sessionsCount);
+            } else {
+                let removed = Sessions.remove({});
+                if (removed !== 0) WebUntisCtrl.log("removed " + removed + " sessions from mongo");
+                let count = 0;
+                sessionJson.forEach((session) => {
+                    let elements = [];
+                    try {
+                        elements = session.description.split(" ");
+                    } catch (ex) {
+                        WebUntisCtrl.log("sessions description is not a string: " + session.description)
+                    }
+                    let cleanedObj = {
+                        title: session.title,
+                        start: Date.parse(session.start),
+                        end: Date.parse(session.end),
+                        location: session.location,
+                        elements: elements
+                    };
+                    Sessions.insert(cleanedObj);
+                    count += 1;
                 });
-                if (typeof firstObjInMongo !== "undefined") {
-                    WebUntisCtrl.log("Sessions in mongo are already in mongo, count: " + sessionsCount);
-                } else {
-                    let removed = Sessions.remove({});
-                    if (removed !== 0) WebUntisCtrl.log("removed " + removed + " sessions from mongo");
-                    let count = 0;
-                    sessionJson.forEach((session) => {
-                        let elements = [];
-                        try {
-                            elements = session.description.split(" ");
-                        } catch (ex) {
-                            WebUntisCtrl.log("sessions description is not a string: " + session.description)
-                        }
-                        let cleanedObj = {
-                            title: session.title,
-                            start: Date.parse(session.start),
-                            end: Date.parse(session.end),
-                            location: session.location,
-                            elements: elements
-                        };
-                        Sessions.insert(cleanedObj);
-                        count += 1;
-                    });
-                    WebUntisCtrl.log("inserted " + count + " sessions in mongo");
-                }
+                WebUntisCtrl.log("inserted " + count + " sessions in mongo");
             }
+            //}
         }));
     }
 
