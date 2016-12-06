@@ -89,11 +89,20 @@ class MapCtrl {
                 fill: {
                     color: '#ff0000',
                     opacity: 0.5
-                }
+
+                },
+               events:{
+                   click: (mapModel, eventName, originalEventArgs) => {
+                       alert("hej");//TODO: Modal indsættes
+                   }
+
+               }
+
             });
         }
         return newArr;
     }
+
 }
 
 const name = 'mapContainer';
