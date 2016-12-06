@@ -3,40 +3,43 @@ import angularMeteor from 'angular-meteor';
 import {Classes} from '../../../../imports/collections/classes';
 
 class SelectClassModalCtrl{
-    constructor($scope, mapService) {
+    constructor($scope, $reactive, mapService) {
         'ngInject';
-        $scope.selectedClass = undefined;
-        $scope.txtDate = new Date();
+        $reactive(this).attach($scope);
+        this.selectedClass = undefined;
+        this.txtDate = new Date();
 
-        $scope.subscribe('classes');
-        $scope.getClasses = function() {
-            return Classes.find().fetch();
-        }
-        $scope.dateOptions = {
+        this.subscribe('classes');
+        this.helpers({
+            getClasses: () => {
+                return Classes.find();//.fetch();
+            }
+        })
+        this.dateOptions = {
             //dateDisabled: disabled,
             formatYear: 'yy',
             //maxDate: new Date(2020, 5, 22),
             //minDate: new Date(),
             startingDay: 1
         };
-        $scope.openDatePopup = function() {
-            $scope.datePopup.opened = true;
+        this.openDatePopup = function() {
+            this.datePopup.opened = true;
         };
-        $scope.datePopup = {
+        this.datePopup = {
             opened: false
         };
-        $scope.find = function () {
+        this.find = function () {
             mapService.setRoomInCenter("4.0.30");
-            $scope.dismiss();
+            this.dismiss();
             //mapService.setLocation(57.0208519, 9.8845859);
         }
-        $scope.dismiss = function() {
+        this.dismiss = function() {
             $scope.$dismiss();
         };
     }
 }
 
-const name = 'selectModalCtrl';
+const name = 'selectClassModalCtrl';
 
 export default angular.module(name, [
     angularMeteor

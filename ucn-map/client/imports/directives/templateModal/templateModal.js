@@ -9,11 +9,14 @@ class TemplateModalCtrl {
 
         $uibModal.open({
             templateUrl,
-            controller: function($scope) {
-                $scope.dismiss = function() {
+            controller: function($scope, $reactive) {
+                'ngInject';
+                $reactive(this).attach($scope);
+                this.dismiss = function() {
                     $scope.$dismiss();
                 };
             },
+            controllerAs: "ctrl"
             /*resolve: {
              items: function () {
              return [1,2,3];

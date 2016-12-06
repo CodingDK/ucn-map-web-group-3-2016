@@ -1,46 +1,18 @@
 import angular from 'angular';
 import angularMeteor from 'angular-meteor';
 import templateUrl from './roomInfoModal.html';
-import {Rooms} from '../../../../imports/collections/rooms';
-import {Sessions} from '../../../../imports/collections/sessions';
+import {name as RoomInfoModalCtrl} from './roomInfoModalCtrl';
 
-"use strict";
 class RoomInfoModal {
 
 
-    constructor($uibModal, $reactive, $state, $stateParams, $timeout, $scope) {
+    constructor($uibModal, $state, $timeout) {
         'ngInject';
-        $reactive(this).attach($scope);
-        RoomInfoModal.instance = this;;
 
-        console.log("$stateParams", $stateParams);
         $uibModal.open({
             templateUrl,
-            controller: function($scope, $rootScope) {
-
-                $rootScope.subscribe('rooms');
-                $rootScope.subscribe('sessions');
-
-                $rootScope.helpers({
-                    getRoom() {
-                        return Rooms.findOne({_id: $stateParams.roomId});
-                    },
-                    getSessions() {
-                        var test = Sessions.find({location:"SD3.0.25"});
-                        //console.log("test", test);
-                        return test.fetch();
-                    }
-                })
-                // $scope.getRoom = function () {
-                //     return RoomInfoModal.instance.getRoom();
-                // }
-                // $scope.getSessions = function () {
-                //     return RoomInfoModal.instance.getSessions();
-                // }
-                $scope.dismiss = function() {
-                    $scope.$dismiss();
-                };
-            },
+            controller: RoomInfoModalCtrl,
+            controllerAs: "ctrl"
             /*resolve: {
              items: function () {
              return [1,2,3];
@@ -64,7 +36,8 @@ const name = 'roomInfoModal';
 
 // create a module
 export default angular.module(name, [
-    angularMeteor
+    angularMeteor,
+    RoomInfoModalCtrl
 ]).directive(name, function roomInfoModalDirective() {
     return {
         //templateUrl,

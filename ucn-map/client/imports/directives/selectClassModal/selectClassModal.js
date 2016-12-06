@@ -4,22 +4,27 @@ import templateUrl from "./selectClassModal.html";
 import {name as SelectClassModalCtrl} from './selectClassModalCtrl';
 
 class SelectClassModalDirective {
-    constructor($uibModal, $state) {
+    constructor($uibModal, $state, $timeout) {
         'ngInject';
 
         $uibModal.open({
             templateUrl,
             controller: SelectClassModalCtrl,
             size: "sm",
+            //component: 'modalComponent',
             /*resolve: {
              items: function () {
              return [1,2,3];
              }
              }*/
+            controllerAs: "ctrl",
+            //bindToController: true,
         }).result.then(doClosureFn, doDismissFn);
 
         function doClosureFn() {
-            $state.go('home');
+            $timeout(function () {
+                $state.go('home');
+            },100);
         }
         function doDismissFn() {
             return doClosureFn();
@@ -36,7 +41,6 @@ export default angular.module(name, [
 ]).directive(name, function() {
     return {
         //templateUrl,
-        //controllerAs: name,
         controller: SelectClassModalDirective
     }
 });
