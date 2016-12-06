@@ -2,6 +2,7 @@ import {Meteor} from 'meteor/meteor';
 import { HTTP } from 'meteor/http';
 import {Classes} from '../../../imports/collections/classes';
 import {Rooms} from '../../../imports/collections/rooms';
+import {Sessions} from '../../../imports/collections/sessions';
 
 const fs = require('fs');
 const path = require('path');
@@ -145,8 +146,52 @@ export class WebUntisCtrl {
             this.createSessionFile();
         } else {
             WebUntisCtrl.log("Session File already exist");
+            WebUntisCtrl.updateSessionsInMongo(this.sessionFilePath);
         }
-        //TODO Insert sessions from file in mongo
+
+    }
+
+    static updateSessionsInMongo(path) {
+        fs.readFile(path, Meteor.bindEnvironment(function read(err, data) {
+            if (err) {
+                WebUntisCtrl.log("Session File couldn't be readed, error: " + err);
+            }
+
+            let sessionsCount = Sessions.find().count();
+            let sessionJson = JSON.parse(data);
+            if (sessionJson.length === sessionsCount) {
+                let firstObjInJson = sessionJson[0];
+                let firstObjInMongo = Sessions.findOne({title: firstObjInJson.title,
+                    start: Date.parse(firstObjInJson.start),
+                    end: Date.parse(firstObjInJson.end)
+                });
+                if (typeof firstObjInMongo !== "undefined") {
+                    WebUntisCtrl.log("Sessions in mongo are already in mongo, count: " + sessionsCount);
+                } else {
+                    let removed = Sessions.remove({});
+                    if (removed !== 0) WebUntisCtrl.log("removed " + removed + " sessions from mongo");
+                    let count = 0;
+                    sessionJson.forEach((session) => {
+                        let elements = [];
+                        try {
+                            elements = session.description.split(" ");
+                        } catch (ex) {
+                            WebUntisCtrl.log("sessions description is not a string: " + session.description)
+                        }
+                        let cleanedObj = {
+                            title: session.title,
+                            start: Date.parse(session.start),
+                            end: Date.parse(session.end),
+                            location: session.location,
+                            elements: elements
+                        };
+                        Sessions.insert(cleanedObj);
+                        count += 1;
+                    });
+                    WebUntisCtrl.log("inserted " + count + " sessions in mongo");
+                }
+            }
+        }));
     }
 
     createSessionFile() {
@@ -177,6 +222,7 @@ export class WebUntisCtrl {
                     }
                     WebUntisCtrl.log("Sessions file was saved with " + sessions.length + " sessions");
                 });
+                WebUntisCtrl.updateSessionsInMongo(path);
             }
         }
         //WebUntisCtrl.log("### ended creating sessions ###");
@@ -192,6 +238,7 @@ export class WebUntisCtrl {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0'
             }
         };
+
         HTTP.get(url, options, onDone);
     }
 }

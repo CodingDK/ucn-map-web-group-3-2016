@@ -15,6 +15,7 @@ insertTestData = function () {
             Rooms.insert(room);
             count+=1;
         });
+
         console.log(logName + "inserted " + count + " rooms in mongo");
     } else {
         console.log(logName + "rooms count in db is " + roomsCount);
