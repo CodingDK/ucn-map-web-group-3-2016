@@ -1,5 +1,6 @@
 var gulp = require("gulp"),
-    del = require("del");
+    del = require("del"),
+    rename = require("gulp-rename");
 
 var folders = {
     nodeModules: "node_modules/",
@@ -20,13 +21,18 @@ gulp.task("preparingForSass", function () {
             folders.nodeModules + module + "/**/*",
             folders.importsNodeCopy + module
         );
-        console.log("copy nodeModule: " + module);
+        console.log("copied nodeModule: " + module);
     }
     moveFolder(fontawesome,
         folders.nodeModules + fontawesome + "/fonts/*",
         folders.publicNodeCopy + fontawesome + "/fonts"
     );
-    console.log("copy " + fontawesome + " fonts to public folder");
+    console.log("copied " + fontawesome + " fonts to public folder");
+    var calendar = "angular-bootstrap-calendar";
+    gulp.src(folders.nodeModules + calendar + "/dist/css/" + calendar + ".css")
+        .pipe(rename(calendar + ".scss"))
+        .pipe(gulp.dest(folders.importsNodeCopy + calendar));
+    console.log("copied and renamed " + calendar + " to import folder");
 });
 
 gulp.task("clean:preparingForSass", function () {

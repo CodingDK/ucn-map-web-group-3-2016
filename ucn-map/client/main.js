@@ -2,7 +2,10 @@ import angular from 'angular';
 import angularMeteor from 'angular-meteor';
 import uiBootstrap from 'angular-ui-bootstrap';
 import uiRouter from 'angular-ui-router';
+//import 'angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls';
+import uiCalendar from 'angular-bootstrap-calendar';
 import {name as logException} from './imports/factories/logException';
+import {name as alertService} from './imports/services/alertService/alertService';
 import {name as TopNavigation} from './imports/components/topNavigation/topNavigation';
 import {name as MapContainer} from './imports/components/mapContainer/mapContainer';
 import {name as TemplateModal} from './imports/directives/templateModal/templateModal';
@@ -10,12 +13,13 @@ import {name as SelectClassModal} from './imports/directives/selectClassModal/se
 import {name as RoomInfoModal} from './imports/directives/roomInfoModal/roomInfoModal';
 import {name as MapService} from './imports/services/mapService/mapService';
 
-
 angular.module('ucn-map-app', [
     angularMeteor,
     logException,
+    alertService,
     uiBootstrap,
     uiRouter,
+    uiCalendar,
     TopNavigation,
     MapContainer,
     TemplateModal,
@@ -23,7 +27,7 @@ angular.module('ucn-map-app', [
     MapService,
     RoomInfoModal
 ])
-.config(function routeConfig($stateProvider, $urlRouterProvider, $locationProvider)  {
+.config(function routeConfig($stateProvider, $urlRouterProvider, $locationProvider, $angularTemplatesSettings)  {
     'ngInject';
     $urlRouterProvider.otherwise("home");
 
@@ -44,4 +48,7 @@ angular.module('ucn-map-app', [
         template: '<room-info-modal></room-info-modal>',
         url: '/room/:roomId'
     });
+    $angularTemplatesSettings.warning = false;
+    $angularTemplatesSettings.error = false;
+
 });

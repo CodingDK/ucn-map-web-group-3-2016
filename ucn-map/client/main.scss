@@ -56,3 +56,32 @@ body {
     @extend .fa-chevron-left;
   }
 }
+
+.not-sm-text-left {
+  text-align: center;
+  @media (min-width: $screen-sm-min) {
+    text-align: left;
+  }
+}
+.not-sm-text-right {
+  text-align: center;
+  @media (min-width: $screen-sm-min) {
+    text-align: right;
+  }
+}
+
+.eventDetails .col {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.modalLoading {
+  text-align:center;
+  i {
+    vertical-align: middle;
+  }
+  span {
+    vertical-align: middle;
+    font-size: 20px;
+  }
+}

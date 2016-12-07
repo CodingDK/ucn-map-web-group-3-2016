@@ -5,14 +5,61 @@
     <h3 class="modal-title" id="modal-title">RoomInfo - {{ctrl.room._id}}</h3>
 </div>
 <div class="modal-body" id="modal-body">
-    <div ng-if="!ctrl.room">
-        The Room id was not found
+    <div ng-if="!ctrl.loaded" class="modalLoading">
+        <i class='fa fa-spinner fa-spin fa-3x fa-fw' aria-hidden="true"></i> <span>Loading...</span>
     </div>
+    <!--<div ng-if="ctrl.loaded && !ctrl.room">-->
+        <!--The Room id was not found-->
+    <!--</div>-->
     <div ng-if="ctrl.room">
-        Content of roomInfoModal {{ctrl.sessions | json}}
+        <h4 class="text-center">{{ ctrl.calendarTitle }}</h4>
+        <mwl-calendar view="ctrl.calendarView"
+                      view-date="ctrl.viewDate"
+                      view-title="ctrl.calendarTitle"
+                      events="ctrl.events"
+                      on-event-click="ctrl.eventClicked(calendarEvent)"
+                      cell-is-open="true"
+                      day-view-start="08:00"
+                      day-view-end="17:00">
+        </mwl-calendar>
+        <br />
+        <div class="row">
+            <div class="col-md-6 text-left not-sm-text-left">
+                <div class="btn-group">
+                    <button class="btn btn-primary"
+                            mwl-date-modifier
+                            date="ctrl.viewDate"
+                            decrement="ctrl.calendarView">
+                        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                    </button>
+                    <button class="btn btn-default"
+                            mwl-date-modifier
+                            date="ctrl.viewDate"
+                            set-to-today>
+                        Today
+                    </button>
+                    <button class="btn btn-primary"
+                            mwl-date-modifier
+                            date="ctrl.viewDate"
+                            increment="ctrl.calendarView">
+                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+
+            <br class="visible-xs visible-sm">
+
+            <div class="col-md-6 not-sm-text-right">
+                <div class="btn-group">
+                    <!--<label class="btn btn-primary" ng-model="ctrl.calendarView" uib-btn-radio="'month'">Month</label>-->
+                    <label class="btn btn-primary" ng-model="ctrl.calendarView" uib-btn-radio="'week'">Week</label>
+                    <label class="btn btn-primary" ng-model="ctrl.calendarView" uib-btn-radio="'day'">Day</label>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 <div class="modal-footer">
-    <button class="btn btn-primary" type="button" data-ng-click="ctrl.dismiss()">Luk</button>
+    <button class="btn btn-primary" type="button" data-ng-click="ctrl.dismiss()">Close</button>
 </div>
