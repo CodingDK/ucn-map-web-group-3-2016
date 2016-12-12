@@ -159,7 +159,8 @@ export class WebUntisCtrl {
             }
 
             let sessionJson = JSON.parse(data);
-            if (sessionJson.length === 0) {
+            const jsonlength = sessionJson.length;
+            if (jsonlength === 0) {
                 WebUntisCtrl.log("No Sessions in file");
                 return;
             }
@@ -168,9 +169,8 @@ export class WebUntisCtrl {
                 start: Date.parse(firstObjInJson.start),
                 end: Date.parse(firstObjInJson.end)
             });
-
-            if (typeof firstObjInMongo !== "undefined") {
-                let sessionsCount = Sessions.find().count();
+            let sessionsCount = Sessions.find().count();
+            if (typeof firstObjInMongo !== "undefined" && jsonlength === sessionsCount) {
                 WebUntisCtrl.log("Sessions in mongo are already in mongo, count: " + sessionsCount);
             } else {
                 let removed = Sessions.remove({});
