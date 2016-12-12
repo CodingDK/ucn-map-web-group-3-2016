@@ -3,6 +3,7 @@ import { HTTP } from 'meteor/http';
 import {Classes} from '../../../imports/collections/classes';
 import {Rooms} from '../../../imports/collections/rooms';
 import {Sessions} from '../../../imports/collections/sessions';
+import moment from 'moment';
 
 const fs = require('fs');
 const path = require('path');
@@ -158,6 +159,10 @@ export class WebUntisCtrl {
             }
 
             let sessionJson = JSON.parse(data);
+            if (sessionJson.length === 0) {
+                WebUntisCtrl.log("No Sessions in file");
+                return;
+            }
             let firstObjInJson = sessionJson[0];
             let firstObjInMongo = Sessions.findOne({title: firstObjInJson.title,
                 start: Date.parse(firstObjInJson.start),
@@ -196,13 +201,16 @@ export class WebUntisCtrl {
 
     createSessionFile() {
         //WebUntisCtrl.log("### started creating sessions ###");
+        let date = moment().startOf('isoweek').format("YYYY-MM-DD"); //get monday of this week
+
+
         let roomsCur = Rooms.find({webUntisId: {$ne:null}, type: 1}).fetch();
         const path = this.sessionFilePath;
         let doneCount = roomsCur.length;
         let sessions = [];
         roomsCur.forEach(function(room) {
             //WebUntisCtrl.log( "room: " + room._id + "= id:"+room.webUntisId );
-            WebUntisCtrl.fetchSessions(room, function doneGettingSession(error, result) {
+            WebUntisCtrl.fetchSessions(room, date, function doneGettingSession(error, result) {
                 //WebUntisCtrl.log("error", error);
                 //WebUntisCtrl.log("result", result.data);
                 if (error) {
@@ -212,6 +220,7 @@ export class WebUntisCtrl {
                 }
                 doneCount -= 1;
                 handleIfGettingIsDone();
+
             });
         });
         function handleIfGettingIsDone() {
@@ -228,9 +237,14 @@ export class WebUntisCtrl {
         //WebUntisCtrl.log("### ended creating sessions ###");
     }
 
-    static fetchSessions(room, onDone) {
+    /**
+     * Get data for sessions from webUntis
+     * @param room the room object
+     * @param date monday of the week for getting info for. format: YYYY/MM/DD
+     * @param onDone
+     */
+    static fetchSessions(room, date, onDone) {
         let elementId = room.webUntisId;
-        let date = "2016-12-05";
         const url = "http://ucn.brosa.dk/get_lessons_min.php";//?;
         let options = {
             query: "type=4&element=" + elementId + "&date=" + date,
