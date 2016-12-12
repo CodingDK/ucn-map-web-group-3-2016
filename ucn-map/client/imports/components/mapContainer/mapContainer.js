@@ -30,6 +30,23 @@ class MapCtrl {
                 streetViewControl: false
             }
         };
+        this.marker = {
+            id: 0,
+            coords: {
+                latitude: 57.0208519,
+                longitude: 9.8845859
+            },
+            events: {
+                click: (mapModel, eventName, originalEventArgs) => {
+                    this.setMarkerVisible(false);
+                    $scope.$apply();
+                }
+            },
+            options: {
+                visible: false//() => {return this.marker.show;}
+            }
+        }
+
         this.subscribe('rooms');
 
         this.helpers({
@@ -40,32 +57,41 @@ class MapCtrl {
 
         //this.poly = MapCtrl.getRoomsAsPolygons();
 
-        this.setRoomInCenter = function(roomId) {
-            var founded = this.poly.filter(function( obj ) {
-                return obj.id === roomId;
-            })[0];
-            if (typeof founded === "undefined") {
-                //TODO handle if a room not founded?
-                console.log("room not founded! ", roomId);
-                return;
-            }
-            var bounds = new google.maps.LatLngBounds();
-
-            var path = founded.path;
-            for (var i = 0, length = path.length; i < length; i++) {
-                var cor = path[i];
-                bounds.extend(new google.maps.LatLng(cor.latitude, cor.longitude));
-            }
-            var mapInstance = this.map.control.getGMap();
-            mapInstance.fitBounds(bounds);
-            mapInstance.setZoom(19);
-        }
-
         //TODO maybe need to test this in same way?
         $scope.$on('$destroy', function destroyMapContainer() {
             console.log("destroyed map!");
             mapService.mapInstance = undefined;
         })
+    }
+
+    setRoomInCenter(roomId) {
+        var founded = this.poly.filter(function( obj ) {
+            return obj.id === roomId;
+        })[0];
+        if (typeof founded === "undefined") {
+            //TODO handle if a room not founded?
+            console.log("room not founded! ", roomId);
+            return;
+        }
+        var bounds = new google.maps.LatLngBounds();
+
+        var path = founded.path;
+        for (var i = 0, length = path.length; i < length; i++) {
+            var cor = path[i];
+            bounds.extend(new google.maps.LatLng(cor.latitude, cor.longitude));
+        }
+        this.marker.coords = {
+            latitude: bounds.getCenter().lat(),
+            longitude: bounds.getCenter().lng()
+        }
+        this.setMarkerVisible(true);
+        var mapInstance = this.map.control.getGMap();
+        mapInstance.fitBounds(bounds);
+        mapInstance.setZoom(19);
+    }
+
+    setMarkerVisible(val) {
+        this.marker.options.visible = val;
     }
 
     setLocation(latitude, longitude) {
