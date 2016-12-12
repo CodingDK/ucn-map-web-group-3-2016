@@ -5,14 +5,15 @@
     <h3 class="modal-title" id="modal-title">Find your classroom</h3>
 </div>
 <div class="modal-body" id="modal-body">
-    <!--<p>Model: {{ctrl.selectedClass | json}}</p>-->
-    <!--<p>getClasses(): {{ctrl.getClasses() | json}}</p>-->
+    <p>Model: {{ctrl.selectedClass | json}}</p>
+    <p>txtDate: {{ctrl.txtDate | json}}</p>
 
     <form>
         <div class="form-group">
             <label for="className">Classname:</label>
-            <input type="text" class="form-control" id="className" autocomplete="off" ng-model="selectedClass"
-                   uib-typeahead="e as e._id for e in ctrl.getClasses | filter:$viewValue | limitTo:8">
+            <input type="text" class="form-control" id="className" autocomplete="off" ng-model="ctrl.selectedClass"
+                   uib-typeahead="e as e._id for e in ctrl.getClasses | filter:$viewValue | limitTo:8"
+                   ng-change="ctrl.test()">
         </div>
         <div class="form-group">
             <label for="txtDate">Date:</label>
@@ -22,7 +23,7 @@
                        datepicker-options="ctrl.dateOptions"
                        ng-required="true" close-text="Close" />
                 <div class="input-group-btn">
-                    <button type="button" class="btn btn-default" ng-click="ctrl.openDatePopup()">
+                    <button type="button" class="btn btn-default fixHeight" ng-click="ctrl.openDatePopup()">
                         <i class="fa fa-calendar" aria-hidden="true"></i>
                     </button>
                 </div>
@@ -32,5 +33,5 @@
 </div>
 
 <div class="modal-footer">
-    <button class="btn btn-primary" type="button" data-ng-click="ctrl.find()">Find</button>
+    <button class="btn btn-primary" type="button" data-ng-click="ctrl.showOnMap()">Show on Map</button>
 </div>

@@ -166,8 +166,8 @@ export class WebUntisCtrl {
             }
             let firstObjInJson = sessionJson[0];
             let firstObjInMongo = Sessions.findOne({title: firstObjInJson.title,
-                start: Date.parse(firstObjInJson.start),
-                end: Date.parse(firstObjInJson.end)
+                start: {$eq: moment(firstObjInJson.start).toDate()},
+                end: {$eq: moment(firstObjInJson.end).toDate()}
             });
             let sessionsCount = Sessions.find().count();
             if (typeof firstObjInMongo !== "undefined" && jsonlength === sessionsCount) {
@@ -185,8 +185,8 @@ export class WebUntisCtrl {
                     }
                     let cleanedObj = {
                         title: session.title,
-                        start: Date.parse(session.start),
-                        end: Date.parse(session.end),
+                        start: moment(session.start).toDate(),// Date.parse(session.start),
+                        end: moment(session.end).toDate(),// Date.parse(session.end),
                         location: session.location,
                         elements: elements
                     };
