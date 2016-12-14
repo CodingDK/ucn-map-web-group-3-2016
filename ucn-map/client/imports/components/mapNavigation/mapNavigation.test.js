@@ -5,7 +5,7 @@ import { sinon } from 'meteor/practicalmeteor:sinon';
 
 import '../../../main';
 
-describe("topNavigation", function () {
+describe("mapNavigation", function () {
     describe('component', function() {
         var element;
 
@@ -20,12 +20,12 @@ describe("topNavigation", function () {
                 $rootScope = _$rootScope_;
             });
 
-            element = $compile('<top-navigation></top-navigation>')($rootScope.$new(true));
+            element = $compile('<map-navigation></map-navigation>')($rootScope.$new(true));
             $rootScope.$digest();
         });
 
         it('top-navigation is defined', function () {
-            assert.isDefined(element[0], 'top-navigation is defined');
+            assert.isDefined(element[0], 'map-navigation is defined');
         });
     });
     describe('controller', function() {
@@ -36,11 +36,11 @@ describe("topNavigation", function () {
         }));
 
         it('default value for isNavCollapsed is true', function() {
-            var ctrl = $componentController('topNavigation', null);
+            var ctrl = $componentController('mapNavigation', null);
             assert.equal(ctrl.isNavCollapsed, true);
         });
         it('toggle set value from true to false', function() {
-            var ctrl = $componentController('topNavigation', null);
+            var ctrl = $componentController('mapNavigation', null);
             assert.equal(ctrl.isNavCollapsed, true);
             ctrl.toggle();
             assert.equal(ctrl.isNavCollapsed, false);

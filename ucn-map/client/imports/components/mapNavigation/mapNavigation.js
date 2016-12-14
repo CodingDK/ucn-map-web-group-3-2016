@@ -1,6 +1,6 @@
 import angular from 'angular';
 import angularMeteor from 'angular-meteor';
-import templateUrl from './topNavigation.html';
+import templateUrl from './mapNavigation.html';
 
 import uiRouter from 'angular-ui-router';
 "use strict";
@@ -19,7 +19,7 @@ class NavCtrl {
     };
 }
 
-const name = 'topNavigation';
+const name = 'mapNavigation';
 
 // create a module
 export default angular.module(name, [

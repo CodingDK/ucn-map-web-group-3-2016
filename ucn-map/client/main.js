@@ -6,7 +6,7 @@ import uiRouter from 'angular-ui-router';
 import uiCalendar from 'angular-bootstrap-calendar';
 import {name as logException} from './imports/factories/logException';
 import {name as alertService} from './imports/services/alertService/alertService';
-import {name as TopNavigation} from './imports/components/topNavigation/topNavigation';
+import {name as MapNavigation} from './imports/components/mapNavigation/mapNavigation';
 import {name as MapContainer} from './imports/components/mapContainer/mapContainer';
 import {name as TemplateModal} from './imports/directives/templateModal/templateModal';
 import {name as SelectClassModal} from './imports/directives/selectClassModal/selectClassModal';
@@ -20,7 +20,7 @@ angular.module('ucn-map-app', [
     uiBootstrap,
     uiRouter,
     uiCalendar,
-    TopNavigation,
+    MapNavigation,
     MapContainer,
     TemplateModal,
     SelectClassModal,
