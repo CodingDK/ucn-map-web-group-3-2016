@@ -13,7 +13,8 @@ gulp.task("preparingForSass", function () {
     var fontawesome = "font-awesome";
     var modules = [
         "bootstrap-sass",
-        fontawesome
+        fontawesome,
+        "angular-ui-notification"
     ];
     for (var i = 0; i < modules.length; i++) {
         var module = modules[i];
