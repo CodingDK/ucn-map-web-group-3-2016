@@ -40,9 +40,12 @@ body {
 .angular-google-map-container {
   position: absolute;
   top: 0;
-  bottom: 0;
+  bottom: 50px;
   right: 0;
   left: 0;
+  @media (min-width: $screen-md) { //TODO FIX This!
+    bottom: 0;
+  }
 }
 
 // Fix issue with angular-bootstrap datepicker popup
@@ -59,13 +62,13 @@ body {
 
 .not-sm-text-left {
   text-align: center;
-  @media (min-width: $screen-sm-min) {
+  @media (min-width: $screen-md) {
     text-align: left;
   }
 }
 .not-sm-text-right {
   text-align: center;
-  @media (min-width: $screen-sm-min) {
+  @media (min-width: $screen-md) {
     text-align: right;
   }
 }
