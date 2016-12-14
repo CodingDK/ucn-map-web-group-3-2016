@@ -1,38 +1,25 @@
-<nav class="navbar navbar-inverse navbar-fixed-top"> <!-- data-ng-controller="navCtrl" -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <!--<button type="button" class="navbar-toggle" ng-click="$ctrl.toggle()">-->
-                <!--<span class="sr-only">Vis menu</span>-->
-                <!--<span class="icon-bar"></span>-->
-                <!--<span class="icon-bar"></span>-->
-                <!--<span class="icon-bar"></span>-->
-            <!--</button>-->
             <a ui-sref="home" class="navbar-brand">
                 <img border="0" src="img/ucn_logo.png" class="logo">
             </a>
         </div>
-        <div class="collapse navbar-collapse">
-
-            <div class="hidden-sm hidden-xs">
-                <ul class="nav navbar-nav">
-                    <li ui-sref-active="active">
-                        <a ui-sref="selectClassModal" ui-sref-active="active">FIND CLASS</a>
-                    </li>
-                    <li><a href="#">BOOK ROOM</a></li>
-                    <li><a href="#">ENVIRONMENT</a></li>
-                </ul>
-            </div>
-        </div>
+        <ul class="nav navbar-nav hidden-sm hidden-xs">
+            <li ui-sref-active="active">
+                <a ui-sref="selectClassModal" ui-sref-active="active">FIND CLASS</a>
+            </li>
+            <li><a href="#">BOOK ROOM</a></li>
+            <li><a href="#">ENVIRONMENT</a></li>
+        </ul>
     </div>
 </nav>
 
-<div class="visible-xs visible-sm">
-<nav class="navbar navbar-inverse navbar-fixed-bottom">
+<nav class="navbar navbar-inverse navbar-fixed-bottom navBottom visible-xs visible-sm">
     <div class="container-fluid text-center">
-        <!--<div class="navbar-header">-->
-            <div class="row">
-            <div class="col col-xs-4" ui-sref-active="active">
 
+        <ul class="nav navbar-nav">
+            <li class="col col-xs-4" ui-sref-active="active">
                 <a ui-sref="selectClassModal" ui-sref-active="active">
                     <div class="row">
                         <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
@@ -41,24 +28,27 @@
                         Find room
                     </div>
                 </a>
-            </div>
-            <div class="col col-xs-4"><a href="#">
-                <div class="row">
-                    <i class="fa fa-calendar-plus-o fa-2x" aria-hidden="true"></i>
-                </div>
-                <div class="row">
-                    Book room
-                </div>
-            </a></div>
-            <div class="col col-xs-4"><a href="#">
-                <div class="row">
-                    <i class="fa fa-eye fa-2x" aria-hidden="true"></i>
-                </div>
-                <div class="row">
-                    Environment
-                </div>
-            </a></div>
-            </div>
+            </li>
+            <li class="col col-xs-4">
+                <a href="#">
+                    <div class="row">
+                        <i class="fa fa-calendar-plus-o fa-2x" aria-hidden="true"></i>
+                    </div>
+                    <div class="row">
+                        Book room
+                    </div>
+                </a>
+            </li>
+            <li class="col col-xs-4">
+                <a href="#">
+                    <div class="row">
+                        <i class="fa fa-eye fa-2x" aria-hidden="true"></i>
+                    </div>
+                    <div class="row">
+                        Environment
+                    </div>
+                </a>
+            </li>
+        </ul>
     </div>
 </nav>
-</div>

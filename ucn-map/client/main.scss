@@ -21,6 +21,9 @@ body {
   padding-top: 50px;
 }
 
+/*-----------------------------------
+	Navigation bars
+-----------------------------------*/
 .navbar {
   background: linear-gradient(180deg, #050a02, #2f2d2a);
 }
@@ -32,6 +35,31 @@ body {
     max-height: 100%;
   }
 }
+
+.navBottom {
+  .navbar-nav {
+    float: none;
+    margin: 0;
+
+    li {
+      &:first-child {
+        border-right:1px solid #9d9d9d;
+      }
+      &:last-child {
+        border-left:1px solid #9d9d9d;
+      }
+      & > a {
+        padding-top: 8px;
+        padding-bottom: 5px;
+      }
+    }
+  }
+}
+
+/*-----------------------------------
+	Map Container
+-----------------------------------*/
+
 .map-container {
   position: relative;
   height: 100%;
@@ -40,10 +68,10 @@ body {
 .angular-google-map-container {
   position: absolute;
   top: 0;
-  bottom: 50px;
+  bottom: 63px;
   right: 0;
   left: 0;
-  @media (min-width: $screen-md) { //TODO FIX This!
+  @media (min-width: $screen-md) {
     bottom: 0;
   }
 }
@@ -88,7 +116,6 @@ body {
     font-size: 20px;
   }
 }
-
 .fixHeight {
   padding-bottom: 7px;
 }
