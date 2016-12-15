@@ -12,7 +12,12 @@ export class WebUntisCtrl {
 
     constructor() {
         const basePath = path.resolve('.').split('.meteor')[0];
-        this.sessionFilePath = basePath + "server/imports/data/sessions.json";
+        if (Meteor.isDevelopment) {
+            this.sessionFilePath = basePath + "server/imports/data/sessions.json";
+        }
+        else {
+            this.sessionFilePath = basePath + "/sessions.json";
+        }
     }
 
     static log(message) {
