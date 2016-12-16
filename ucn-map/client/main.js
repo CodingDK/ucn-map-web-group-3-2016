@@ -4,6 +4,7 @@ import uiBootstrap from 'angular-ui-bootstrap';
 import uiRouter from 'angular-ui-router';
 //import 'angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls';
 import uiCalendar from 'angular-bootstrap-calendar';
+import uiNotification from 'angular-ui-notification';
 import {name as logException} from './imports/factories/logException';
 import {name as alertService} from './imports/services/alertService/alertService';
 import {name as MapNavigation} from './imports/components/mapNavigation/mapNavigation';
@@ -20,6 +21,7 @@ angular.module('ucn-map-app', [
     uiBootstrap,
     uiRouter,
     uiCalendar,
+    uiNotification,
     MapNavigation,
     MapContainer,
     TemplateModal,
@@ -29,7 +31,6 @@ angular.module('ucn-map-app', [
 ])
 .config(function routeConfig($stateProvider, $urlRouterProvider, $locationProvider, $angularTemplatesSettings)  {
     'ngInject';
-    $urlRouterProvider.otherwise("home");
 
     $locationProvider.html5Mode(true);
     $stateProvider.state("home", {
@@ -48,6 +49,8 @@ angular.module('ucn-map-app', [
         template: '<room-info-modal></room-info-modal>',
         url: '/room/:roomId'
     });
+    $urlRouterProvider.otherwise("home");
+
     $angularTemplatesSettings.warning = false;
     $angularTemplatesSettings.error = false;
 

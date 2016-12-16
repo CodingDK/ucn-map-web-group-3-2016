@@ -5,10 +5,11 @@ import {Sessions} from '../../../../imports/collections/sessions';
 import moment from 'moment';
 
 class SelectClassModalCtrl{
-    constructor($scope, $reactive, mapService) {
+    constructor($scope, $reactive, mapService, Notification) {
         'ngInject';
         $reactive(this).attach($scope);
         this.mapService = mapService;
+        this.Notification = Notification;
 
         this.selectedClass = null;
         this.txtDate = new Date();
@@ -80,7 +81,7 @@ class SelectClassModalCtrl{
             this.mapService.setRoomInCenter(location);
             this.dismiss();
         } else {
-            //TODO No Session found for the search terms
+            this.Notification.info({message: 'No Session found for the search terms', title: 'No result'});
         }
     }
 

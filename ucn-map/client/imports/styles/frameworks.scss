@@ -18,9 +18,13 @@ $fa-font-path:   "node_copy/font-awesome/fonts";
 //@import "../wwwroot/lib/angular-bootstrap/ui-bootstrap-csp";
 
 /*-----------------------------------
-	Font-Awesome
+	angular-bootstrap-calendar
 -----------------------------------*/
 
 @import "../../../imports/node_copy/angular-bootstrap-calendar/angular-bootstrap-calendar";
 
-//@import "../../../imports/node_copy/angular-bootstrap-calendar/dist/css/angular-bootstrap-calendar.min.css";
+/*-----------------------------------
+	angular-ui-notification
+-----------------------------------*/
+
+@import "../../../imports/node_copy/angular-ui-notification/angular-ui-notification";
