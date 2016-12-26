@@ -14,29 +14,15 @@ class SelectClassModalCtrl{
         this.selectedClass = null;
         this.txtDate = new Date();
 
+        this.classNameValid = true;
+        this.txtDateValid = true;
+
         this.subscribe('classes');
         this.subscribe('sessions');
         this.helpers({
             getClasses: () => {
                 return Classes.find();//.fetch();
-            },
-            /*getSessionForDate: () => {
-                if (!this.isClassNameValid()) return null;
-                //return null;
-
-                let className = this.selectedClass._id;
-
-                let date = moment(this.txtDate).startOf('date');
-                console.log("getSesssion", date);
-                let session = Sessions.findOne({
-                    start: {
-                        $gte: date.toDate(),
-                        $lt: date.add(1, 'days').toDate()
-                    },
-                    elements: className
-                });
-                return session;
-            },*/
+            }
         })
         this.dismiss = () => {
             $scope.$dismiss();
@@ -59,13 +45,16 @@ class SelectClassModalCtrl{
         this.datePopup.opened = true;
     }
 
-    showOnMap() {
+    showOnMap(form) {
+        form.$setSubmitted();
+
         if (!this.isClassNameValid()) {
-            //TODO ClassName is not found
+            //ClassName is not found
             return;
         }
+
         if (!this.isDateValid()) {
-            //TODO Date is not valid
+            //Date is not valid
         }
         let date = moment(this.txtDate).startOf('date');
         let firstSession = Sessions.findOne({
@@ -88,21 +77,41 @@ class SelectClassModalCtrl{
     isClassNameValid() {
         if (typeof this.selectedClass === "string") {
             let findFirst = this.getClasses.find((element) => {
-                return element._id === this.selectedClass;
+                this.classNameValid = element._id === this.selectedClass;
+                return this.classNameValid;
             });
 
             if (typeof findFirst !== "undefined") {
                 this.selectedClass = findFirst;
-                return true;
+                this.classNameValid = true;
+                return this.classNameValid;
             } else {
-                return false;
+                this.classNameValid = false;
+                return this.classNameValid;
             }
         }
-        return this.selectedClass !== null;
+        this.classNameValid = this.selectedClass !== null;
+        return this.classNameValid;
     }
 
     isDateValid() {
-        return moment(this.txtDate, "YYYY-MM-DD").isValid();
+        this.txtDateValid = moment(this.txtDate, "YYYY-MM-DD").isValid();
+        return this.txtDateValid;
+    }
+
+    validateClassName(form) {
+        form.className.$setValidity('isInvalid', this.isClassNameValid());
+    }
+
+    clearValidClassNameError(form) {
+        if (!this.classNameValid) {
+            this.classNameValid = true;
+            form.className.$setValidity('isInvalid', this.classNameValid);
+        }
+    }
+
+    validateDate(form) {
+        form.txtDate.$setValidity('isInvalid', this.isDateValid());
     }
 }
 

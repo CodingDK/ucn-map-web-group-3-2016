@@ -2,6 +2,7 @@ import angular from 'angular';
 import angularMeteor from 'angular-meteor';
 import uiBootstrap from 'angular-ui-bootstrap';
 import uiRouter from 'angular-ui-router';
+import ngMessage from 'angular-messages';
 //import 'angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls';
 import uiCalendar from 'angular-bootstrap-calendar';
 import uiNotification from 'angular-ui-notification';
@@ -20,6 +21,7 @@ angular.module('ucn-map-app', [
     alertService,
     uiBootstrap,
     uiRouter,
+    ngMessage,
     uiCalendar,
     uiNotification,
     MapNavigation,

@@ -5,33 +5,51 @@
     <h3 class="modal-title" id="modal-title">Find your classroom</h3>
 </div>
 <div class="modal-body" id="modal-body">
-    <!--<p>Model: {{ctrl.selectedClass | json}}</p>-->
-    <!--<p>txtDate: {{ctrl.txtDate | json}}</p>-->
-
-    <form>
-        <div class="form-group">
-            <label for="className">Classname:</label>
-            <input type="text" class="form-control" id="className" autocomplete="off" ng-model="ctrl.selectedClass"
+    <form name="classForm">
+        <div class="form-group" ng-class="{ 'has-error': (classForm.$submitted || classForm.className.$touched) && classForm.className.$invalid }">
+            <label class="control-label" for="className">Classname:</label>
+            <input type="text" class="form-control" id="className" name="className" autocomplete="off"
+                   ng-model="ctrl.selectedClass"
                    uib-typeahead="e as e._id for e in ctrl.getClasses | filter:$viewValue | limitTo:8"
-                   ng-change="ctrl.test()">
+                   typeahead-on-select="ctrl.validateClassName(classForm)"
+                   ng-blur="ctrl.validateClassName(classForm)"
+                   ng-change="ctrl.clearValidClassNameError(classForm)"
+                   placeholder="Type your classname"
+                   required />
+            <div class="help-block" ng-messages="classForm.className.$error" ng-show="classForm.$submitted || classForm.className.$touched"
+                 role="alert">
+                <div ng-message="required">You did not enter a classname</div>
+                <div ng-message="isInvalid">You did not enter a valid classname</div>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="txtDate">Date:</label>
+        <div class="form-group" ng-class="{ 'has-error': (classForm.$submitted || classForm.txtDate.$touched) && classForm.txtDate.$invalid }">
+            <label class="control-label" for="txtDate">Date:</label>
             <div class="input-group">
-                <input type="text" class="form-control" id="txtDate"
+                <input type="text" class="form-control" id="txtDate" name="txtDate"
                        uib-datepicker-popup ng-model="ctrl.txtDate" is-open="ctrl.datePopup.opened"
                        datepicker-options="ctrl.dateOptions"
-                       ng-required="true" close-text="Close" />
+                       ng-change="ctrl.validateDate(classForm)"
+                       placeholder="Select a date"
+                       ng-required="true" close-text="Close" required/>
                 <div class="input-group-btn">
                     <button type="button" class="btn btn-default fixHeight" ng-click="ctrl.openDatePopup()">
                         <i class="fa fa-calendar" aria-hidden="true"></i>
                     </button>
                 </div>
             </div>
+            <div class="help-block" ng-messages="classForm.txtDate.$error" ng-show="classForm.$submitted || classForm.txtDate.$touched"
+                 role="alert">
+                <div ng-message="required">You did not select a date</div>
+                <div ng-message="isInvalid">Valid format: YYYY-MM-DD</div>
+            </div>
         </div>
     </form>
+
+    <!--<p>Model: {{ctrl.selectedClass | json}}</p>-->
+    <!--<p>txtDate: {{ctrl.txtDate | json}}</p>-->
+
 </div>
 
 <div class="modal-footer">
-    <button class="btn btn-primary" type="button" data-ng-click="ctrl.showOnMap()">Show on Map</button>
+    <button class="btn btn-primary" type="button" ng-disabled="!classForm.$valid" data-ng-click="ctrl.showOnMap(classForm)">Show on Map</button>
 </div>
