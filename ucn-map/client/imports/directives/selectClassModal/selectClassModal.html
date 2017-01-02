@@ -1,11 +1,12 @@
 <div class="modal-header">
-    <button type="button" class="close" data-ng-click="ctrl.dismiss()" aria-label="Luk">
+    <button type="button" class="close" data-ng-click="ctrl.dismiss()" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
     <h3 class="modal-title" id="modal-title">Find your classroom</h3>
 </div>
+
+<form name="classForm" data-ng-submit="ctrl.showOnMap(classForm)">
 <div class="modal-body" id="modal-body">
-    <form name="classForm">
         <div class="form-group" ng-class="{ 'has-error': (classForm.$submitted || classForm.className.$touched) && classForm.className.$invalid }">
             <label class="control-label" for="className">Classname:</label>
             <input type="text" class="form-control" id="className" name="className" autocomplete="off"
@@ -43,7 +44,6 @@
                 <div ng-message="isInvalid">Valid format: YYYY-MM-DD</div>
             </div>
         </div>
-    </form>
 
     <!--<p>Model: {{ctrl.selectedClass | json}}</p>-->
     <!--<p>txtDate: {{ctrl.txtDate | json}}</p>-->
@@ -51,5 +51,6 @@
 </div>
 
 <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-disabled="!classForm.$valid" data-ng-click="ctrl.showOnMap(classForm)">Show on Map</button>
+    <button class="btn btn-primary" type="submit" ng-disabled="!classForm.$valid">Show on Map</button>
 </div>
+</form>
