@@ -4,13 +4,18 @@ import 'angular-simple-logger';
 import 'angular-google-maps';
 import templateUrl from './mapContainer.html';
 import {Rooms} from '../../../../imports/collections/rooms';
+import {Sessions} from '../../../../imports/collections/sessions';
 
 class MapCtrl {
-    constructor($scope, $reactive, mapService, $state) {
+    constructor($scope, $reactive, mapService, $state, settingsService) {
         'ngInject';
         $reactive(this).attach($scope);
 
         mapService.mapInstance = this;
+        this.$state = $state;
+        this.settings = settingsService;
+
+        this.firstRun = true;
 
         this.map = {
             center: {
@@ -47,15 +52,26 @@ class MapCtrl {
             }
         }
 
+        this.polyRooms = [];
+
         this.subscribe('rooms');
+        this.subscribe('sessions');
 
         this.helpers({
-            poly() {
-                return MapCtrl.getRoomsAsPolygons(Rooms.find().fetch(), $state);
+            updatePolygons() {
+                this.makeRoomsAsPolygons();
+                if (this.firstRun) this.firstRun = false;
             }
         });
 
-        //this.poly = MapCtrl.getRoomsAsPolygons();
+        $scope.$on('setting:showFreeRooms', (event,data) => {
+            this.makeRoomsAsPolygons();
+        });
+
+        $scope.$on('setting:mapTime', (event,data) => {
+            this.makeRoomsAsPolygons();
+        });
+
 
         //TODO maybe need to test this in same way?
         $scope.$on('$destroy', function destroyMapContainer() {
@@ -65,7 +81,7 @@ class MapCtrl {
     }
 
     setRoomInCenter(roomId) {
-        var founded = this.poly.filter(function( obj ) {
+        var founded = this.polyRooms.filter(function( obj ) {
             return obj.id === roomId;
         })[0];
         if (typeof founded === "undefined") {
@@ -101,10 +117,11 @@ class MapCtrl {
         };
     }
 
-    static getRoomsAsPolygons(roomSource, $state) {
-        let newArr = [];
-        for (let room of roomSource) {
-            newArr.push({
+    makeRoomsAsPolygons() {
+        let sessions = this.getSessionsVisibleOnMap();
+
+        this.polyRooms = Rooms.find().map((room) => {
+            return {
                 id: room._id,
                 path: room.path,
                 stroke: {
@@ -112,21 +129,38 @@ class MapCtrl {
                     weight: 1
                 },
                 visible: true,
-                fill: {
-                    color: '#ff0000',
-                    opacity: 0.0
-
-                },
-               events:{
-                   click: (mapModel, eventName, originalEventArgs) => {
-                       $state.go("roomInfoModal", {roomId: room._id});
-                   }
-               }
-            });
-        }
-        return newArr;
+                fill: this.getFillForRoom(room, sessions),
+                events:{
+                    click: (mapModel, eventName, originalEventArgs) => {
+                        this.$state.go("roomInfoModal", {roomId: room._id});
+                    }
+                }
+            };
+        });
     }
 
+    getSessionsVisibleOnMap() {
+        let date = this.settings.mapTime;
+        return Sessions.find({
+            start: {$lte: date},
+            end: {$gte: date},
+            location: {$ne: null}
+        }, { fields: {location: 1}
+        }).map((element) => {
+            return element.location;
+        });
+    }
+
+    getFillForRoom(room, sessions) {
+        let opacity = 0.0;
+        if (this.settings.showFreeRooms && !this.firstRun && !sessions.includes(room._id)) {
+            opacity = 0.5;
+        }
+        return {
+            color: '#5aff4d',
+            opacity
+        };
+    }
 }
 
 

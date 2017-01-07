@@ -3,19 +3,21 @@ import { Meteor } from 'meteor/meteor';
 import { assert } from 'meteor/practicalmeteor:chai';
 import { sinon } from 'meteor/practicalmeteor:sinon';
 
-import '../../../main';
+import {name as UcnMapApp} from '../../../main';
+import {name as MapNavigation} from './mapNavigation';
 
-describe("mapNavigation", function () {
-    describe('component', function() {
-        var element;
+describe("mapNavigation", () => {
+    beforeEach(() => {
+        window.module(UcnMapApp);
+    });
+    describe('component', () => {
+        let element;
 
-        beforeEach(function () {
-            var $compile;
-            var $rootScope;
+        beforeEach(() => {
+            let $compile;
+            let $rootScope;
 
-            window.module("ucn-map-app");
-
-            inject(function (_$compile_, _$rootScope_) {
+            inject((_$compile_, _$rootScope_) => {
                 $compile = _$compile_;
                 $rootScope = _$rootScope_;
             });
@@ -24,26 +26,27 @@ describe("mapNavigation", function () {
             $rootScope.$digest();
         });
 
-        it('top-navigation is defined', function () {
+        it('mapNavigation is defined', () => {
             assert.isDefined(element[0], 'map-navigation is defined');
         });
     });
-    describe('controller', function() {
-        var $componentController;
-        beforeEach(window.module("ucn-map-app"));
-        beforeEach(inject(function(_$componentController_) {
-            $componentController = _$componentController_;
-        }));
+    describe('controller', ()=> {
+        let ctrl;
 
-        it('default value for isNavCollapsed is true', function() {
-            var ctrl = $componentController('mapNavigation', null);
-            assert.equal(ctrl.isNavCollapsed, true);
+        beforeEach(() => {
+            inject((_$componentController_) => {
+                let $componentController = _$componentController_
+                ctrl = $componentController(MapNavigation, null);
+            })
         });
-        it('toggle set value from true to false', function() {
-            var ctrl = $componentController('mapNavigation', null);
-            assert.equal(ctrl.isNavCollapsed, true);
-            ctrl.toggle();
-            assert.equal(ctrl.isNavCollapsed, false);
+
+        it('default value for isSettingsCollapsed is true', () => {
+            assert.equal(ctrl.isSettingsCollapsed, true);
+        });
+        it('toggleSettings set value from true to false', () => {
+            assert.equal(ctrl.isSettingsCollapsed, true);
+            ctrl.toggleSettings();
+            assert.equal(ctrl.isSettingsCollapsed, false);
         });
     });
 });

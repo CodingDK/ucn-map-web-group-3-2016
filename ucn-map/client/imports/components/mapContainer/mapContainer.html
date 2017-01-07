@@ -5,7 +5,7 @@
                         control="$ctrl.map.control"
                         options="$ctrl.map.options">
         <ui-gmap-polygon static="true"
-                         ng-repeat="p in $ctrl.poly track by p.id"
+                         ng-repeat="p in $ctrl.polyRooms"
                          path="p.path"
                          stroke="p.stroke"
                          visible="p.visible"

@@ -1,0 +1,39 @@
+<div class="settingsDropDown">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <button type="button" class="close" data-ng-click="ctrl.close()" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            Settings
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                <div>
+                    <span class="iconCheckbox noSelect" ng-click="ctrl.toggleShowFreeRoom()">
+                        <span class="fa fa-check-square-o fa-2x" aria-hidden="true" ng-show="ctrl.settings.showFreeRooms"></span>
+                        <span class="fa fa-square-o fa-2x" aria-hidden="true" ng-show="!ctrl.settings.showFreeRooms"></span>
+                        <label>Show free rooms</label>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group" ng-class="{lastVisible: ctrl.settings.showLiveData}">
+                <div>
+                    <span class="iconCheckbox noSelect" ng-click="ctrl.toggleShowLiveData()">
+                        <span class="fa fa-check-square-o fa-2x" aria-hidden="true" ng-show="ctrl.settings.showLiveData"></span>
+                        <span class="fa fa-square-o fa-2x" aria-hidden="true" ng-show="!ctrl.settings.showLiveData"></span>
+                        <label>Live Data</label>
+                    </span>
+                </div>
+            </div>
+            <div ng-show="!ctrl.settings.showLiveData">
+                <div class="form-group">
+                    <label class="noSelect" for="txtTime">Time</label>
+                    <input type="datetime-local" class="form-control" id="txtTime"
+                           ng-blur="ctrl.changeMapTime()"
+                           ng-keyup="$event.keyCode == 13 && ctrl.changeMapTime()"
+                           ng-model="ctrl.formTime">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

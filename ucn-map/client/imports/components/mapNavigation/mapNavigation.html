@@ -4,16 +4,25 @@
             <a ui-sref="home" class="navbar-brand">
                 <img border="0" src="img/ucn_logo.png" class="logo">
             </a>
+            <ul class="nav navbar-nav hidden-sm hidden-xs">
+                <li ui-sref-active="active">
+                    <a ui-sref="selectClassModal" ui-sref-active="active">FIND CLASS</a>
+                </li>
+                <li><a href="#">BOOK ROOM</a></li>
+                <li><a href="#">ENVIRONMENT</a></li>
+            </ul>
+            <div class="navSettings">
+                <a ng-click="ctrl.toggleSettings()" >
+                    <span class="fa fa-cog fa-2x fa-fw" aria-hidden="true"></span>
+                    <span class="sr-only">Settings</span>
+                </a>
+            </div>
         </div>
-        <ul class="nav navbar-nav hidden-sm hidden-xs">
-            <li ui-sref-active="active">
-                <a ui-sref="selectClassModal" ui-sref-active="active">FIND CLASS</a>
-            </li>
-            <li><a href="#">BOOK ROOM</a></li>
-            <li><a href="#">ENVIRONMENT</a></li>
-        </ul>
+
     </div>
 </nav>
+
+<settings-drop-down close="ctrl.toggleSettings()" uib-collapse="ctrl.isSettingsCollapsed"></settings-drop-down>
 
 <nav class="navbar navbar-inverse navbar-fixed-bottom navBottom visible-xs visible-sm">
     <div class="container-fluid text-center">

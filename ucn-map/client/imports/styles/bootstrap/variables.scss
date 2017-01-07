@@ -15,8 +15,8 @@
 //$navbar-inverse-border:                     darken($navbar-inverse-bg, 10%) !default;
 
 // Inverted navbar links
-//$navbar-inverse-link-color:                 #A3B8CA;
-//$navbar-inverse-link-hover-color:           #fff !default;
+$navbar-inverse-link-color:                   #fff; //#A3B8CA;
+$navbar-inverse-link-hover-color:             #A3B8CA; //#fff !default;
 //$navbar-inverse-link-hover-bg:              transparent !default;
 //$navbar-inverse-link-active-color:          $navbar-inverse-link-hover-color !default;
 //$navbar-inverse-link-active-bg:             darken($navbar-inverse-bg, 10%) !default;

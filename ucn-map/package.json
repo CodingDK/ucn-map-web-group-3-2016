@@ -4,6 +4,7 @@
   "scripts": {
     "start": "meteor run",
     "test": "meteor test --once --driver-package dispatch:mocha-phantomjs --port 3050",
+    "testWithConsole": "meteor test --driver-package dispatch:mocha-phantomjs --port 3050",
     "testWithBrowser": "meteor test --driver-package practicalmeteor:mocha --port 3100",
     "installNpmPackages": "meteor npm install",
     "startForAnne": "meteor npm install && gulp preparingForSass && meteor run",

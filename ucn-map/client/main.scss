@@ -21,6 +21,10 @@ body {
   padding-top: 50px;
 }
 
+.noSelect {
+  user-select: none;
+}
+
 /*-----------------------------------
 	Navigation bars
 -----------------------------------*/
@@ -33,6 +37,62 @@ body {
   .logo {
     max-width: 100%;
     max-height: 100%;
+  }
+}
+
+.navSettings {
+  position: absolute;
+  right: 10px;
+  margin-top: 11px;
+  a {
+    color: $navbar-inverse-link-color;
+    cursor: pointer;
+    &:hover {
+      color: $navbar-inverse-link-hover-color;
+    }
+  }
+}
+
+.settingsDropDown {
+  position: absolute;
+  top: 55px;
+  left: initial;
+  right: 5px;
+  width: 205px;
+  z-index: 2;
+  @media (min-width: $screen-md-min) {
+    width: 240px;
+  }
+  @media (max-width: $screen-sm-max) {
+    & .panel-heading {
+      padding: 5px 10px;
+    }
+
+    & .panel-body {
+      padding: 10px;
+    }
+  }
+
+  & .close {
+    margin-top: -1px;
+  }
+
+  & .iconCheckbox {
+    cursor: pointer;
+    & .fa {
+      vertical-align: middle;
+      &:nth-child(2) {
+        margin-right:4px;
+      }
+    }
+    & label {
+      cursor: pointer;
+      margin-left: 4px;
+    }
+  }
+
+  & .form-group.lastVisible {
+      margin-bottom: 0;
   }
 }
 

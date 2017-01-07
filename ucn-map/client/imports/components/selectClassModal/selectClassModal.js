@@ -1,23 +1,22 @@
 import angular from 'angular';
 import angularMeteor from 'angular-meteor';
-import templateUrl from "./selectClassModal.html";
-import {name as SelectClassModalCtrl} from './selectClassModalCtrl';
+import {name as SelectClassModalWindow} from './selectClassModalWindow';
 
 class SelectClassModalDirective {
     constructor($uibModal, $state, $timeout) {
         'ngInject';
 
         $uibModal.open({
-            templateUrl,
-            controller: SelectClassModalCtrl,
+            //templateUrl,
+            //controller: SelectClassModalWindow,
             size: "sm",
-            //component: 'modalComponent',
+            component: SelectClassModalWindow,
             /*resolve: {
              items: function () {
              return [1,2,3];
              }
              }*/
-            controllerAs: "ctrl",
+            //controllerAs: "ctrl",
             //bindToController: true,
         }).result.then(doClosureFn, doDismissFn);
 
@@ -37,7 +36,7 @@ const name = 'selectClassModal';
 // create a module
 export default angular.module(name, [
     angularMeteor,
-    SelectClassModalCtrl
+    SelectClassModalWindow
 ]).directive(name, function() {
     return {
         //templateUrl,

@@ -8,14 +8,17 @@ import uiCalendar from 'angular-bootstrap-calendar';
 import uiNotification from 'angular-ui-notification';
 import {name as logException} from './imports/factories/logException';
 import {name as alertService} from './imports/services/alertService/alertService';
+import {name as MapService} from './imports/services/mapService/mapService';
+import {name as SettingsService} from './imports/services/settingsService/settingsService';
 import {name as MapNavigation} from './imports/components/mapNavigation/mapNavigation';
 import {name as MapContainer} from './imports/components/mapContainer/mapContainer';
-import {name as TemplateModal} from './imports/directives/templateModal/templateModal';
-import {name as SelectClassModal} from './imports/directives/selectClassModal/selectClassModal';
-import {name as RoomInfoModal} from './imports/directives/roomInfoModal/roomInfoModal';
-import {name as MapService} from './imports/services/mapService/mapService';
+import {name as SelectClassModal} from './imports/components/selectClassModal/selectClassModal';
+import {name as RoomInfoModal} from './imports/components/roomInfoModal/roomInfoModal';
 
-angular.module('ucn-map-app', [
+
+const name = 'ucn-map-app';
+
+export default angular.module(name, [
     angularMeteor,
     logException,
     alertService,
@@ -26,9 +29,9 @@ angular.module('ucn-map-app', [
     uiNotification,
     MapNavigation,
     MapContainer,
-    TemplateModal,
     SelectClassModal,
     MapService,
+    SettingsService,
     RoomInfoModal
 ])
 .config(function routeConfig($stateProvider, $urlRouterProvider, $locationProvider, $angularTemplatesSettings)  {
@@ -42,10 +45,6 @@ angular.module('ucn-map-app', [
     $stateProvider.state("selectClassModal", {
         template: '<select-class-modal></select-class-modal>',
         url: "/selectClass"
-    });
-    $stateProvider.state("templateModal", {
-        template: '<template-modal></template-modal>',
-        url: '/templateModal'
     });
     $stateProvider.state("roomInfoModal", {
         template: '<room-info-modal></room-info-modal>',

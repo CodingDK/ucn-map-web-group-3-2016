@@ -1,23 +1,15 @@
 import angular from 'angular';
 import angularMeteor from 'angular-meteor';
-import templateUrl from './roomInfoModal.html';
-import {name as RoomInfoModalCtrl} from './roomInfoModalCtrl';
+import {name as RoomInfoModalWindow} from './roomInfoModalWindow';
 
-class RoomInfoModal {
+class RoomInfoModalDirective {
 
 
     constructor($uibModal, $state, $timeout) {
         'ngInject';
 
         $uibModal.open({
-            templateUrl,
-            controller: RoomInfoModalCtrl,
-            controllerAs: "ctrl"
-            /*resolve: {
-             items: function () {
-             return [1,2,3];
-             }
-             }*/
+            component: RoomInfoModalWindow
         }).result.then(doClosureFn, doDismissFn);
 
         function doClosureFn() {
@@ -37,11 +29,11 @@ const name = 'roomInfoModal';
 // create a module
 export default angular.module(name, [
     angularMeteor,
-    RoomInfoModalCtrl
+    RoomInfoModalWindow
 ]).directive(name, function roomInfoModalDirective() {
     return {
         //templateUrl,
         //controllerAs: name,
-        controller: RoomInfoModal
+        controller: RoomInfoModalDirective
     }
 });

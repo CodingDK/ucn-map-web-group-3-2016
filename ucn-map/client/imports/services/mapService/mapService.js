@@ -4,11 +4,6 @@ import angularMeteor from 'angular-meteor';
 class MapService {
     mapInstance;
 
-    setLocation(latitude, longitude) {
-        this.checkMapInstance();
-        this.mapInstance.setLocation(latitude, longitude);
-    }
-
     setRoomInCenter(roomId) {
         this.checkMapInstance();
         this.mapInstance.setRoomInCenter(roomId);

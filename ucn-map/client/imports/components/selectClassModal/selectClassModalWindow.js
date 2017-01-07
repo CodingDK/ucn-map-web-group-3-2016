@@ -3,16 +3,17 @@ import angularMeteor from 'angular-meteor';
 import {Classes} from '../../../../imports/collections/classes';
 import {Sessions} from '../../../../imports/collections/sessions';
 import moment from 'moment';
+import templateUrl from "./selectClassModalWindow.html";
 
-class SelectClassModalCtrl{
-    constructor($scope, $reactive, mapService, Notification) {
+class SelectClassModalWindow {
+    constructor($scope, $reactive, mapService, settingsService, Notification) {
         'ngInject';
         $reactive(this).attach($scope);
         this.mapService = mapService;
         this.Notification = Notification;
 
         this.selectedClass = null;
-        this.txtDate = new Date();
+        this.txtDate = settingsService.mapTime;
 
         this.classNameValid = true;
         this.txtDateValid = true;
@@ -24,9 +25,9 @@ class SelectClassModalCtrl{
                 return Classes.find();//.fetch();
             }
         })
-        this.dismiss = () => {
-            $scope.$dismiss();
-        }
+        //this.dismiss = () => {
+        //    this.$dismiss();
+        //}
     }
 
     datePopup = {
@@ -115,8 +116,18 @@ class SelectClassModalCtrl{
     }
 }
 
-const name = 'selectClassModalCtrl';
+const name = 'selectClassModalWindow';
 
 export default angular.module(name, [
     angularMeteor
-]).controller(name, SelectClassModalCtrl);
+])//.controller(name, SelectClassModalWindow);
+    .component(name, {
+        templateUrl,
+        bindings: {
+            //resolve: '<',
+            //close: '&',
+            dismiss: '&'
+        },
+        controllerAs: "ctrl",
+        controller: SelectClassModalWindow
+    })
